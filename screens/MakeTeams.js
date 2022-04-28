@@ -1,12 +1,19 @@
-import { FlatList, StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, ImageBackground, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Colors from "../constans/style";
+import PrimaryButton from "../components/MakeTeams/Button";
+import {useNavigation} from '@react-navigation/native'
 
 
-function MakeTeams(){
-    return(
-
-        <LinearGradient
+function MakeTeams() {
+  const navigation = useNavigation();
+  
+  function makeTeamsHandler(){
+    navigation.navigate('ChoosePlayers')
+  }
+  return (
+    <>
+      <LinearGradient
         colors={[Colors.primary500, Colors.primary600]}
         style={styles.rootScreen}
       >
@@ -16,23 +23,32 @@ function MakeTeams(){
           style={styles.rootScreen}
           imageStyle={styles.backgroundImage}
         >
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={makeTeamsHandler}>Click here to make Teams</PrimaryButton>
+        </View>
         </ImageBackground>
       </LinearGradient>
-    )
+    </>
+  );
 }
 
-export default MakeTeams
+export default MakeTeams;
 
 const styles = StyleSheet.create({
-    rootContainer:{
-        flex:1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    rootScreen: {
-        flex: 1,
-      },
-      backgroundImage: {
-        opacity: 0.15,
-      },
-})
+  rootContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  rootScreen: {
+    flex: 1,
+  },
+  backgroundImage: {
+    opacity: 0.15,
+  },
+  buttonContainer: {
+    flex:1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

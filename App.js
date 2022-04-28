@@ -1,17 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
-import AllPlayersScreen from "./screens/AllPlayerScreen";
-import MakeTeams from "./screens/MakeTeams";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Colors from "./constans/style";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "expo-status-bar";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import Colors from "./constans/style";
+import AllPlayersScreen from "./screens/AllPlayerScreen";
+import MakeTeams from "./screens/MakeTeams";
+import ChoosePlayers from "./screens/ChoosePlayers";
 
-
+const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
+function TabBarOverView(){
+  return(
       <BottomTab.Navigator
         initialRouteName="All Players"
         screenOptions={{
@@ -40,7 +42,24 @@ export default function App() {
           }}
         />
       </BottomTab.Navigator>
+  )
+
+}
+
+export default function App() {
+  return (
+    <>
+    <StatusBar style= 'light'/>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="TabBarOverView" component={TabBarOverView} options={{
+          headerShown: false,
+        }}/>
+        <Stack.Screen name="ChoosePlayers" component={ChoosePlayers}/>
+      </Stack.Navigator>
     </NavigationContainer>
+    </>
+    
   );
 }
 

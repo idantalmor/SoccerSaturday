@@ -27,7 +27,7 @@ function AllPlayersScreen() {
           data={PLAYER}
           keyExtractor={(item) => item.id}
           renderItem={renderPlayersItem}
-          numColumns={3}
+          numColumns={2}
         />
       </ImageBackground>
     </LinearGradient>
