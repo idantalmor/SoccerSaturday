@@ -13,6 +13,7 @@ function ChoosePlayers() {
   }
   function cleanListHandler() {
     setPlayersAreCome("");
+    setAllPlayers(PLAYER)
   }
 
   function renderPlayersItem(itemData) {
@@ -46,7 +47,7 @@ function ChoosePlayers() {
       <Text style={styles.title}>Press on the Players are Attend</Text>
       <View style={styles.flatListContainer}>
         <Text Text style={styles.titleContainer}>
-          All Player
+          All Player ({AllPlayers.length})
         </Text>
         <View>
           <FlatList
@@ -58,7 +59,7 @@ function ChoosePlayers() {
         </View>
       </View>
       <View>
-        <Text style={styles.titleContainer}>Who's Come</Text>
+        <Text style={styles.titleContainer}>Who's Come ({PlayersAreCome.length}) </Text>
         <FlatList
           data={PlayersAreCome}
           keyExtractor={(item) => item.id}
