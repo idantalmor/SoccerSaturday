@@ -4,16 +4,26 @@ import Colors from "../constans/style";
 import Subtitle from "../components/MakeTeams/SubTitle";
 import PrimaryButton from "../components/MakeTeams/Button";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 function ChoosePlayers() {
-  function renderPlayersItem(itemData) {
-    const myPlayer = itemData.item
-    return <Subtitle onPress={ChooseMe.bind(this,myPlayer)}>{itemData.item.fullName}</Subtitle>;
+  const navigation = useNavigation();
+  function makeTeamsHandler() {
+    navigation.navigate("TheTeams",{arrayPlayers :PlayersAreCome});
   }
-  const [PlayersAreCome, setPlayersAreCome] = useState([])
-  console.log(PlayersAreCome)
+
+  function renderPlayersItem(itemData) {
+    const myPlayer = itemData.item;
+    return (
+      <Subtitle onPress={ChooseMe.bind(this, myPlayer)}>
+        {itemData.item.fullName}
+      </Subtitle>
+    );
+  }
+  const [PlayersAreCome, setPlayersAreCome] = useState([]);
+  console.log(PlayersAreCome);
   function ChooseMe(myPlayer) {
-    setPlayersAreCome((oldArray) => [myPlayer,...oldArray])
+    setPlayersAreCome((oldArray) => [myPlayer, ...oldArray]);
   }
   return (
     <View>
@@ -25,7 +35,7 @@ function ChoosePlayers() {
         numColumns={3}
       />
       <View>
-        <PrimaryButton>Come on!</PrimaryButton>
+        <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
       </View>
     </View>
   );

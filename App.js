@@ -8,6 +8,7 @@ import Colors from "./constans/style";
 import AllPlayersScreen from "./screens/AllPlayerScreen";
 import MakeTeams from "./screens/MakeTeams";
 import ChoosePlayers from "./screens/ChoosePlayers";
+import TheTeams from "./screens/TheTeams";
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator();
@@ -56,6 +57,7 @@ export default function App() {
           headerShown: false,
         }}/>
         <Stack.Screen name="ChoosePlayers" component={ChoosePlayers}/>
+        <Stack.Screen name="TheTeams" component={TheTeams}/>
       </Stack.Navigator>
     </NavigationContainer>
     </>
