@@ -9,7 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 function ChoosePlayers() {
   const navigation = useNavigation();
   function makeTeamsHandler() {
-    navigation.navigate("TheTeams",{arrayPlayers :PlayersAreCome});
+    navigation.navigate("TheTeams", { Players: PlayersAreCome });
+  }
+  function cleanListHandler() {
+    setPlayersAreCome("");
   }
 
   function renderPlayersItem(itemData) {
@@ -20,22 +23,52 @@ function ChoosePlayers() {
       </Subtitle>
     );
   }
+  function renderPlayersChosenItem(itemData) {
+    const myPlayer = itemData.item;
+    return (
+      <Subtitle onPress={DontChooseMe.bind(this, myPlayer)}>
+        {itemData.item.fullName}
+      </Subtitle>
+    );
+  }
   const [PlayersAreCome, setPlayersAreCome] = useState([]);
-  console.log(PlayersAreCome);
+  const [AllPlayers, setAllPlayers] = useState(PLAYER);
   function ChooseMe(myPlayer) {
     setPlayersAreCome((oldArray) => [myPlayer, ...oldArray]);
+    setAllPlayers(AllPlayers.filter((item) => item != myPlayer));
+  }
+  function DontChooseMe(myPlayer) {
+    setAllPlayers((oldArray) => [myPlayer, ...oldArray]);
+    setPlayersAreCome(AllPlayers.filter((item) => item != myPlayer));
   }
   return (
     <View>
       <Text style={styles.title}>Press on the Players are Attend</Text>
-      <FlatList
-        data={PLAYER}
-        keyExtractor={(item) => item.id}
-        renderItem={renderPlayersItem}
-        numColumns={3}
-      />
+      <View style={styles.flatListContainer}>
+        <Text Text style={styles.titleContainer}>
+          All Player
+        </Text>
+        <View>
+          <FlatList
+            data={AllPlayers}
+            keyExtractor={(item) => item.id}
+            renderItem={renderPlayersItem}
+            numColumns={3}
+          />
+        </View>
+      </View>
+      <View>
+        <Text style={styles.titleContainer}>Who's Come</Text>
+        <FlatList
+          data={PlayersAreCome}
+          keyExtractor={(item) => item.id}
+          renderItem={renderPlayersChosenItem}
+          numColumns={3}
+        />
+      </View>
       <View>
         <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
+        <PrimaryButton onPress={cleanListHandler}>Clean List</PrimaryButton>
       </View>
     </View>
   );
@@ -47,6 +80,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 20,
+    color: "blue",
   },
   buttonOuterContainer: {
     borderRadius: 28,
@@ -64,7 +98,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
+  flatListContainer: {
+    textAlign: "center",
+  },
   pressed: {
     opacity: 0.75,
+  },
+  titleContainer: {
+    color: Colors.primary500,
+    textAlign: "center",
+    fontSize: 20,
+    borderBottomWidth: 3,
+    fontWeight: "bold",
   },
 });
