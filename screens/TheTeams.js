@@ -33,7 +33,11 @@ function TheTeams() {
     return <Text>{itemData.item.fullName}</Text>;
   }
   function makeTeamsHandler() {
-    navigation.navigate("TheTeams");
+    navigation.navigate("AfterForce", {
+      GoalKeeper: ArrayGoalKeeper,
+      Backs: ArrayBack,
+      Attacks: ArrayAttack,
+    });
   }
 
   return (

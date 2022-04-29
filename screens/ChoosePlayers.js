@@ -6,6 +6,7 @@ import {
   Pressable,
   ScrollView,
   SafeAreaView,
+  VirtualizedList,
 } from "react-native";
 import { PLAYER } from "../data/dummy-data";
 import Colors from "../constans/style";
@@ -54,39 +55,37 @@ function ChoosePlayers() {
     setPlayersAreCome(PlayersAreCome.filter((item) => item != myPlayer));
     setAllPlayers((oldArray) => [myPlayer, ...oldArray]);
   }
+
   return (
     <SafeAreaView>
       <ScrollView>
         <View>
-          <Text style={styles.title}>Press on the Players are Attend</Text>
-          <View style={styles.flatListContainer}>
+          <Text style={styles.title}>
+            Click on the players who have confirmed arrival
+          </Text>
+          <View style={styles.flatList1Container}>
             <Text Text style={styles.titleContainer}>
-              All Player ({AllPlayers.length})
+              All Players ({AllPlayers.length})
             </Text>
-            <ScrollView>
-              <View>
-                <FlatList
-                  data={AllPlayers}
-                  keyExtractor={(item) => item.id}
-                  renderItem={renderPlayersItem}
-                  numColumns={3}
-                />
-              </View>
-            </ScrollView>
-          </View>
-          <View>
-            <Text style={styles.titleContainer}>
-              Who's Come ({PlayersAreCome.length}){" "}
-            </Text>
-            <ScrollView>
-              <View></View>
+            <View>
               <FlatList
-                data={PlayersAreCome}
+                data={AllPlayers}
                 keyExtractor={(item) => item.id}
-                renderItem={renderPlayersChosenItem}
-                numColumns={3}
+                renderItem={renderPlayersItem}
+                numColumns={2}
               />
-            </ScrollView>
+            </View>
+          </View>
+          <View style={styles.flatList2Container}>
+            <Text style={styles.titleContainer}>
+              Who's Coming ({PlayersAreCome.length}){" "}
+            </Text>
+            <FlatList
+              data={PlayersAreCome}
+              keyExtractor={(item) => item.id}
+              renderItem={renderPlayersChosenItem}
+              numColumns={2}
+            />
           </View>
           <View>
             <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
@@ -102,6 +101,13 @@ function ChoosePlayers() {
 export default ChoosePlayers;
 
 const styles = StyleSheet.create({
+  flatList1Container: {
+    flex: 1,
+    justifyContent: "space-around",
+  },
+  flatList2Container: {
+    justifyContent: "space-around",
+  },
   title: {
     textAlign: "center",
     fontSize: 20,
@@ -122,9 +128,6 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontSize: 20,
-  },
-  flatListContainer: {
-    textAlign: "center",
   },
   pressed: {
     opacity: 0.75,
