@@ -23,11 +23,5 @@ export const PLAYER = [
   new Player("p20", "Shalev nokowen", "Attack", 3),
   new Player("p21", "Ido Sharabi", "Attack", 4),
   new Player("p22", "Dean Sfania", "Attack", 4),
-  new Player("p23", "Elior Blux", "Attack", 3),
-  new Player("p24", "Nir Sfaradi", "Attack", 3),
-  new Player("p25", "Aviv Beno", "Attack", 4),
-  new Player("p26", "Shalev nokowen", "Attack", 3),
-  new Player("p27", "Ido Sharabi", "Attack", 4),
-  new Player("p28", "Dean Sfania", "Attack", 4),
 ];
 
