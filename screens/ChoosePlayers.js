@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import { PLAYER } from "../data/dummy-data";
 import Colors from "../constans/style";
 import Subtitle from "../components/MakeTeams/SubTitle";
@@ -13,7 +21,11 @@ function ChoosePlayers() {
   }
   function cleanListHandler() {
     setPlayersAreCome("");
-    setAllPlayers(PLAYER)
+    setAllPlayers(PLAYER);
+  }
+  function chooseAllHandler() {
+    setPlayersAreCome(PLAYER);
+    setAllPlayers("");
   }
 
   function renderPlayersItem(itemData) {
@@ -39,39 +51,51 @@ function ChoosePlayers() {
     setAllPlayers(AllPlayers.filter((item) => item != myPlayer));
   }
   function DontChooseMe(myPlayer) {
+    setPlayersAreCome(PlayersAreCome.filter((item) => item != myPlayer));
     setAllPlayers((oldArray) => [myPlayer, ...oldArray]);
-    setPlayersAreCome(AllPlayers.filter((item) => item != myPlayer));
   }
   return (
-    <View>
-      <Text style={styles.title}>Press on the Players are Attend</Text>
-      <View style={styles.flatListContainer}>
-        <Text Text style={styles.titleContainer}>
-          All Player ({AllPlayers.length})
-        </Text>
+    <SafeAreaView>
+      <ScrollView>
         <View>
-          <FlatList
-            data={AllPlayers}
-            keyExtractor={(item) => item.id}
-            renderItem={renderPlayersItem}
-            numColumns={3}
-          />
+          <Text style={styles.title}>Press on the Players are Attend</Text>
+          <View style={styles.flatListContainer}>
+            <Text Text style={styles.titleContainer}>
+              All Player ({AllPlayers.length})
+            </Text>
+            <ScrollView>
+              <View>
+                <FlatList
+                  data={AllPlayers}
+                  keyExtractor={(item) => item.id}
+                  renderItem={renderPlayersItem}
+                  numColumns={3}
+                />
+              </View>
+            </ScrollView>
+          </View>
+          <View>
+            <Text style={styles.titleContainer}>
+              Who's Come ({PlayersAreCome.length}){" "}
+            </Text>
+            <ScrollView>
+              <View></View>
+              <FlatList
+                data={PlayersAreCome}
+                keyExtractor={(item) => item.id}
+                renderItem={renderPlayersChosenItem}
+                numColumns={3}
+              />
+            </ScrollView>
+          </View>
+          <View>
+            <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
+            <PrimaryButton onPress={cleanListHandler}>Clean List</PrimaryButton>
+            <PrimaryButton onPress={chooseAllHandler}>Choose All</PrimaryButton>
+          </View>
         </View>
-      </View>
-      <View>
-        <Text style={styles.titleContainer}>Who's Come ({PlayersAreCome.length}) </Text>
-        <FlatList
-          data={PlayersAreCome}
-          keyExtractor={(item) => item.id}
-          renderItem={renderPlayersChosenItem}
-          numColumns={3}
-        />
-      </View>
-      <View>
-        <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
-        <PrimaryButton onPress={cleanListHandler}>Clean List</PrimaryButton>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -111,5 +135,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderBottomWidth: 3,
     fontWeight: "bold",
+  },
+  scrollView: {
+    marginHorizontal: 20,
   },
 });

@@ -9,6 +9,7 @@ import AllPlayersScreen from "./screens/AllPlayerScreen";
 import MakeTeams from "./screens/MakeTeams";
 import ChoosePlayers from "./screens/ChoosePlayers";
 import TheTeams from "./screens/TheTeams";
+import AfterForce from "./screens/AfterForce";
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator();
@@ -58,6 +59,7 @@ export default function App() {
         }}/>
         <Stack.Screen name="ChoosePlayers" component={ChoosePlayers}/>
         <Stack.Screen name="TheTeams" component={TheTeams}/>
+        <Stack.Screen name="AfterForce" component={AfterForce}/>
       </Stack.Navigator>
     </NavigationContainer>
     </>
