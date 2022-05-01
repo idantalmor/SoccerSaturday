@@ -188,6 +188,7 @@ function AfterForce() {
         }
       }
     }
+    step4()
   }
 
   function checkGrade() {
@@ -261,54 +262,43 @@ function AfterForce() {
         tempAttackers.splice(1, 2);
       }
     }
-    var grades = checkGrade();
-    console.log(grades);
     step5();
   }
 
   function step5() {
     var numOfPlayers = checkNumberOfPlayers();
+    while (
+      numOfPlayers.playersA != numOfPlayers.playersB ||
+      numOfPlayers.playersB != numOfPlayers.playersC
+    ) {
+      if (
+        numOfPlayers.playersA < numOfPlayers.playersB ||
+        numOfPlayers.playersA < numOfPlayers.playersC
+      ) {
+        tempTeamA.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (
+        numOfPlayers.playersB < numOfPlayers.playersA ||
+        numOfPlayers.playersB < numOfPlayers.playersC
+      ) {
+        tempTeamB.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (
+        numOfPlayers.playersC < numOfPlayers.playersA ||
+        numOfPlayers.playersC < numOfPlayers.playersB
+      ) {
+        tempTeamC.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      var numOfPlayers = checkNumberOfPlayers();
+    }
     var grades = checkGrade();
-    if (
-      numOfPlayers.playersA < numOfPlayers.playersB ||
-      numOfPlayers.playersA < numOfPlayers.playersC
-    ) {
-      if (grades.gradeB > grades.gradeC) {
-        const difference = grades.gradeB - grades.gradeA;
-        console.log(difference);
-      }
-      if (grades.gradeC > grades.gradeB) {
-        const difference = grades.gradeC - grades.gradeA;
-        console.log(difference);
-      }
-    }
-    if (
-      numOfPlayers.playersB < numOfPlayers.playersA ||
-      numOfPlayers.playersB < numOfPlayers.playersC
-    ) {
-      if (grades.gradeA > grades.gradeC) {
-        const difference = grades.gradeA - grades.gradeB;
-        console.log(difference);
-      }
-      if (grades.gradeC > grades.gradeA) {
-        const difference = grades.gradeC - grades.gradeB;
-        console.log(difference);
-      }
-    }
-    if (
-      numOfPlayers.playersC < numOfPlayers.playersA ||
-      numOfPlayers.playersC < numOfPlayers.playersB
-    ) {
-      if (grades.gradeA > grades.gradeB) {
-        const difference = grades.gradeA - grades.gradeC;
-        console.log(difference);
-      }
-      if (grades.gradeB > grades.gradeA) {
-        const difference = grades.gradeB - grades.gradeC;
-        console.log(difference);
-      }
-    }
+    console.log(grades);
+    console.log(tempAttackers.length);
   }
+
 
   return (
     <View style={styles.rootContainer}>
@@ -373,7 +363,6 @@ function AfterForce() {
 
       <View style={styles.buttonsContainer}>
         <PrimaryButton onPress={step1}>step1</PrimaryButton>
-        <PrimaryButton onPress={step4}>step4</PrimaryButton>
         <PrimaryButton onPress={backNow}>Back to choose</PrimaryButton>
       </View>
     </View>
