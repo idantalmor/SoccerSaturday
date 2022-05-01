@@ -1,7 +1,7 @@
 import Player from "../models/Player";
 
 export const PLAYER = [
-  new Player("p1", "Idan Talmor", "Attack", 4),
+  new Player("p1", "Idan Talmor", "Attack", 3.5),
   new Player("p2", "Guy Marom", "Defense", 4.5),
   new Player("p3", "Itai Duani", "GoalKeeper", 5),
   new Player("p4", "Ilay Binder", "Attack", 4),
@@ -17,11 +17,11 @@ export const PLAYER = [
   new Player("p14", "Itamar Gedj", "Defense", 3.5),
   new Player("p15", "Oshri Adana", "Attack", 5),
   new Player("p16", "Liam Golan", "Attack", 4),
-  new Player("p17", "Elior Blux", "Attack", 3),
+  new Player("p17", "Elior Blux", "Attack", 2.5),
   new Player("p18", "Nir Sfaradi", "Attack", 3),
   new Player("p19", "Aviv Beno", "Attack", 4),
   new Player("p20", "Shalev nokowen", "Attack", 3),
-  new Player("p21", "Ido Sharabi", "Attack", 4),
-  new Player("p22", "Dean Sfania", "Attack", 4),
+  new Player("p21", "Ido Sharabi", "Attack", 3.5),
+  new Player("p22", "Dean Sfania", "Attack", 5),
 ];
 
