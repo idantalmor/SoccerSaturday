@@ -6,15 +6,24 @@ import PrimaryButton from "../components/MakeTeams/Button";
 
 function AfterForce() {
   const route = useRoute();
+  const navigation = useNavigation();
   const [GoalKeepers, setGoalKeepers] = useState(route.params.GoalKeeper);
   const [Backs, setBacks] = useState(route.params.Backs);
   const [Attackers, setAttackers] = useState(route.params.Attacks);
+  const tempBacks = Backs;
+  const tempAttackers = Attackers;
   const [TeamA, setTeamA] = useState([]);
   const [TeamB, setTeamB] = useState([]);
   const [TeamC, setTeamC] = useState([]);
-  var isPaused = false;
+  const tempTeamA = TeamA;
+  const tempTeamB = TeamB;
+  const tempTeamC = TeamC;
 
   const num = getRandomInt(1, 3);
+
+  function backNow() {
+    navigation.navigate("ChoosePlayers");
+  }
 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -52,94 +61,137 @@ function AfterForce() {
       "4"
     );
     if (GoalKeepers.length === 1) {
-      setTeamA((oldArray) => [GoalKeepers[0], ...oldArray]);
-      setTeamB((oldArray) => [changing, ...oldArray]);
-      setTeamC((oldArray) => [changing, ...oldArray]);
-      setGoalKeepers('')
+      tempTeamA.push(GoalKeepers[0]);
+      tempTeamB.push(changing);
+      tempTeamC.push(changing);
+      setGoalKeepers("");
     }
     if (GoalKeepers.length === 2) {
-      setTeamA((oldArray) => [GoalKeepers[0], ...oldArray]);
-      setTeamB((oldArray) => [GoalKeepers[1], ...oldArray]);
-      setTeamC((oldArray) => [changing, ...oldArray]);
-      setGoalKeepers('')
+      tempTeamA.push(GoalKeepers[0]);
+      tempTeamB.push(GoalKeepers[1]);
+      tempTeamC.push(changing);
+      setGoalKeepers("");
     }
     if (GoalKeepers.length === 3) {
-      setTeamA((oldArray) => [GoalKeepers[0], ...oldArray]);
-      setTeamB((oldArray) => [GoalKeepers[1], ...oldArray]);
-      setTeamC((oldArray) => [GoalKeepers[2], ...oldArray]);
-      setGoalKeepers('')
+      tempTeamA.push(GoalKeepers[0]);
+      tempTeamB.push(GoalKeepers[1]);
+      tempTeamC.push(GoalKeepers[2]);
+      setGoalKeepers("");
     }
     step2();
   }
   function step2() {
     Backs.sort((a, b) => (a.grade < b.grade ? 1 : -1));
     Attackers.sort((a, b) => (a.grade < b.grade ? 1 : -1));
-    step3();
+    step3()
   }
 
   function step3() {
-    const num = getRandomInt(0, 2);
-    setTeamA((oldArray) => [Backs[num], ...oldArray]);
-    const num2 = getRandomInt(0, 2);
-    setTeamA((oldArray) => [
-      Attackers[Attackers.length - num2 - 1],
-      ...oldArray,
-    ]);
-    setBacks(Backs.filter((item) => item != Backs[num]));
-    setAttackers(
-      Attackers.filter((item) => item != Attackers[Attackers.length - num2 - 1])
-    );
-  }
-  function step4() {
-    const num = getRandomInt(0, 2);
-    setTeamB((oldArray) => [Backs[num], ...oldArray]);
-    setBacks(Backs.filter((item) => item != Backs[num]));
-    const num2 = getRandomInt(0, 2);
-    setTeamB((oldArray) => [
-      Attackers[Attackers.length - num2 - 1],
-      ...oldArray,
-    ]);
-    setAttackers(
-      Attackers.filter((item) => item != Attackers[Attackers.length - num2 - 1])
-    );
-  }
-
-  function step5() {
-    const num = getRandomInt(0, 2);
-    setTeamC((oldArray) => [Backs[num], ...oldArray]);
-    setBacks(Backs.filter((item) => item != Backs[num]));
-    const num2 = getRandomInt(0, 2);
-    setTeamC((oldArray) => [
-      Attackers[Attackers.length - num2 - 1],
-      ...oldArray,
-    ]);
-    setAttackers(
-      Attackers.filter((item) => item != Attackers[Attackers.length - num2 - 1])
-    );
-  }
-  function step6() {
-    const num = getRandomInt(0, 2);
-    setTeamA((oldArray) => [Attackers[num], ...oldArray]);
-    const num2 = getRandomInt(0, 2);
-    setTeamA((oldArray) => [Backs[Backs.length - num2 - 1], ...oldArray]);
-    setBacks(Backs.filter((item) => item != Backs[Backs.length - num2 - 1]));
-    setAttackers(Attackers.filter((item) => item != Attackers[num]));
-  }
-  function step7() {
-    const num = getRandomInt(0, 2);
-    setTeamB((oldArray) => [Attackers[num], ...oldArray]);
-    const num2 = getRandomInt(0, 2);
-    setTeamB((oldArray) => [Backs[Backs.length - num2 - 1], ...oldArray]);
-    setBacks(Backs.filter((item) => item != Backs[Backs.length - num2 - 1]));
-    setAttackers(Attackers.filter((item) => item != Attackers[num]));
-  }
-  function step8() {
-    const num = getRandomInt(0, 2);
-    setTeamC((oldArray) => [Attackers[num], ...oldArray]);
-    const num2 = getRandomInt(0, Backs.length);
-    setTeamC((oldArray) => [Backs[Backs.length - num2 - 1], ...oldArray]);
-    setBacks(Backs.filter((item) => item != Backs[Backs.length - num2 - 1]));
-    setAttackers(Attackers.filter((item) => item != Attackers[num]));
+    while(tempBacks[0] != null)
+    {
+      if (tempBacks[0] != null && tempBacks[1] != null && tempBacks[2] != null) {
+        {
+          const num = getRandomInt(1, 3);
+          if (num === 1) {
+            tempTeamA.push(tempBacks[0]);
+          }
+          if (num === 2) {
+            tempTeamB.push(tempBacks[0]);
+          }
+          if (num === 3) {
+            tempTeamC.push(tempBacks[0]);
+          }
+          tempBacks.splice(0, 1);
+          if (
+            tempTeamA.length < tempTeamB.length ||
+            tempTeamA.length < tempTeamC.length
+          ) {
+            tempTeamA.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+          if (
+            tempTeamB.length < tempTeamA.length ||
+            tempTeamB.length < tempTeamC.length
+          ) {
+            tempTeamB.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+          if (
+            tempTeamC.length < tempTeamB.length ||
+            tempTeamC.length < tempTeamA.length
+          ) {
+            tempTeamC.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+        }
+        if (
+          tempBacks[0] != null &&
+          tempBacks[1] != null &&
+          tempBacks[2] == null
+        ) {
+          const num = getRandomInt(1, 3);
+          if (num === 1) {
+            tempTeamA.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+            const num2 = getRandomInt(2, 3);
+            if (num2 === 2) {
+              tempTeamB.push(tempBacks[0]);
+            }
+            if (num2 === 3) {
+              tempTeamC.push(tempBacks[0]);
+            }
+          }
+          if (num === 2) {
+            tempTeamB.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+            const num2 = getRandomInt(1, 2);
+            if (num2 === 1) {
+              tempTeamA.push(tempBacks[0]);
+            }
+            if (num2 === 2) {
+              tempTeamC.push(tempBacks[0]);
+            }
+          }
+          if (num === 3) {
+            tempTeamC.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+            const num2 = getRandomInt(1, 2);
+            if (num2 === 1) {
+              tempTeamA.push(tempBacks[0]);
+            }
+            if (num2 === 2) {
+              tempTeamB.push(tempBacks[0]);
+            }
+          }
+        }
+        console.log(tempBacks[0] != null && tempBacks[1] == null);
+        if (tempBacks[0] != null && tempBacks[1] == null) {
+          {
+            const num = getRandomInt(1, 3);
+            console.log(num);
+            if (num === 1) {
+              tempTeamA.push(tempBacks[0]);
+            }
+            if (num === 2) {
+              tempTeamB.push(tempBacks[0]);
+            }
+            if (num === 3) {
+              tempTeamC.push(tempBacks[0]);
+            }
+            tempBacks.splice(0, 1);
+          }
+        }
+    }
+      console.log("Team A");
+      console.log("_______");
+      console.log(TeamA);
+      console.log("Team B");
+      console.log("_______");
+      console.log(TeamB);
+      console.log("Team C");
+      console.log("_______");
+      console.log(TeamC);
+    }
   }
 
   return (
@@ -202,15 +254,10 @@ function AfterForce() {
           />
         </View>
       </View>
+
       <View style={styles.buttonsContainer}>
         <PrimaryButton onPress={step1}>step1</PrimaryButton>
-        <PrimaryButton onPress={step4}>step4</PrimaryButton>
-        <PrimaryButton onPress={step5}>step5</PrimaryButton>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <PrimaryButton onPress={step6}>step6</PrimaryButton>
-        <PrimaryButton onPress={step7}>step7</PrimaryButton>
-        <PrimaryButton onPress={step8}>step8</PrimaryButton>
+        <PrimaryButton onPress={backNow}>Back to choose</PrimaryButton>
       </View>
     </View>
   );
@@ -220,6 +267,7 @@ export default AfterForce;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    justifyContent: "center",
   },
   positions: {
     flexDirection: "row",

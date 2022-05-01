@@ -59,7 +59,9 @@ export default function App() {
         }}/>
         <Stack.Screen name="ChoosePlayers" component={ChoosePlayers}/>
         <Stack.Screen name="TheTeams" component={TheTeams}/>
-        <Stack.Screen name="AfterForce" component={AfterForce}/>
+        <Stack.Screen name="AfterForce" component={AfterForce} options={{
+          headerShown: false,
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
     </>

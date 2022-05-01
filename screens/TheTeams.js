@@ -71,7 +71,7 @@ function TheTeams() {
           />
         </View>
       </View>
-      <PrimaryButton onPress={makeTeamsHandler}>
+      <PrimaryButton onPress={makeTeamsHandler} visible={false}>
         Make 3 Teams of 7 Players
       </PrimaryButton>
     </View>
