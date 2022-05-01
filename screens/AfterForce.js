@@ -83,13 +83,96 @@ function AfterForce() {
   function step2() {
     Backs.sort((a, b) => (a.grade < b.grade ? 1 : -1));
     Attackers.sort((a, b) => (a.grade < b.grade ? 1 : -1));
-    step3()
+    step3();
   }
 
   function step3() {
-    while(tempBacks[0] != null)
-    {
-      if (tempBacks[0] != null && tempBacks[1] != null && tempBacks[2] != null) {
+    while (tempBacks[0] != null) {
+      if (
+        tempBacks[0] != null &&
+        tempBacks[1] != null &&
+        tempBacks[2] != null
+      ) {
+        const num = getRandomInt(1, 3);
+        if (num === 1) {
+          tempTeamA.push(tempBacks[0]);
+        }
+        if (num === 2) {
+          tempTeamB.push(tempBacks[0]);
+        }
+        if (num === 3) {
+          tempTeamC.push(tempBacks[0]);
+        }
+        tempBacks.splice(0, 1);
+        if (
+          tempTeamA.length < tempTeamB.length ||
+          tempTeamA.length < tempTeamC.length
+        ) {
+          tempTeamA.push(tempBacks[0]);
+          tempBacks.splice(0, 1);
+        }
+        if (
+          tempTeamB.length < tempTeamA.length ||
+          tempTeamB.length < tempTeamC.length
+        ) {
+          tempTeamB.push(tempBacks[0]);
+          tempBacks.splice(0, 1);
+        }
+        if (
+          tempTeamC.length < tempTeamB.length ||
+          tempTeamC.length < tempTeamA.length
+        ) {
+          tempTeamC.push(tempBacks[0]);
+          tempBacks.splice(0, 1);
+        }
+      }
+      if (
+        tempBacks[0] != null &&
+        tempBacks[1] != null &&
+        tempBacks[2] == null
+      ) {
+        const num = getRandomInt(1, 3);
+        if (num === 1) {
+          tempTeamA.push(tempBacks[0]);
+          tempBacks.splice(0, 1);
+          const num2 = getRandomInt(2, 3);
+          if (num2 === 2) {
+            tempTeamB.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+          if (num2 === 3) {
+            tempTeamC.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+        }
+        if (num === 2) {
+          tempTeamB.push(tempBacks[0]);
+          tempBacks.splice(0, 1);
+          const num2 = getRandomInt(1, 2);
+          if (num2 === 1) {
+            tempTeamA.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+          if (num2 === 2) {
+            tempTeamC.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+        }
+        if (num === 3) {
+          tempTeamC.push(tempBacks[0]);
+          tempBacks.splice(0, 1);
+          const num2 = getRandomInt(1, 2);
+          if (num2 === 1) {
+            tempTeamA.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+          if (num2 === 2) {
+            tempTeamB.push(tempBacks[0]);
+            tempBacks.splice(0, 1);
+          }
+        }
+      }
+      if (tempBacks[0] != null && tempBacks[1] == null) {
         {
           const num = getRandomInt(1, 3);
           if (num === 1) {
@@ -102,96 +185,67 @@ function AfterForce() {
             tempTeamC.push(tempBacks[0]);
           }
           tempBacks.splice(0, 1);
-          if (
-            tempTeamA.length < tempTeamB.length ||
-            tempTeamA.length < tempTeamC.length
-          ) {
-            tempTeamA.push(tempBacks[0]);
-            tempBacks.splice(0, 1);
-          }
-          if (
-            tempTeamB.length < tempTeamA.length ||
-            tempTeamB.length < tempTeamC.length
-          ) {
-            tempTeamB.push(tempBacks[0]);
-            tempBacks.splice(0, 1);
-          }
-          if (
-            tempTeamC.length < tempTeamB.length ||
-            tempTeamC.length < tempTeamA.length
-          ) {
-            tempTeamC.push(tempBacks[0]);
-            tempBacks.splice(0, 1);
-          }
         }
-        if (
-          tempBacks[0] != null &&
-          tempBacks[1] != null &&
-          tempBacks[2] == null
-        ) {
-          const num = getRandomInt(1, 3);
-          if (num === 1) {
-            tempTeamA.push(tempBacks[0]);
-            tempBacks.splice(0, 1);
-            const num2 = getRandomInt(2, 3);
-            if (num2 === 2) {
-              tempTeamB.push(tempBacks[0]);
-            }
-            if (num2 === 3) {
-              tempTeamC.push(tempBacks[0]);
-            }
-          }
-          if (num === 2) {
-            tempTeamB.push(tempBacks[0]);
-            tempBacks.splice(0, 1);
-            const num2 = getRandomInt(1, 2);
-            if (num2 === 1) {
-              tempTeamA.push(tempBacks[0]);
-            }
-            if (num2 === 2) {
-              tempTeamC.push(tempBacks[0]);
-            }
-          }
-          if (num === 3) {
-            tempTeamC.push(tempBacks[0]);
-            tempBacks.splice(0, 1);
-            const num2 = getRandomInt(1, 2);
-            if (num2 === 1) {
-              tempTeamA.push(tempBacks[0]);
-            }
-            if (num2 === 2) {
-              tempTeamB.push(tempBacks[0]);
-            }
-          }
-        }
-        console.log(tempBacks[0] != null && tempBacks[1] == null);
-        if (tempBacks[0] != null && tempBacks[1] == null) {
-          {
-            const num = getRandomInt(1, 3);
-            console.log(num);
-            if (num === 1) {
-              tempTeamA.push(tempBacks[0]);
-            }
-            if (num === 2) {
-              tempTeamB.push(tempBacks[0]);
-            }
-            if (num === 3) {
-              tempTeamC.push(tempBacks[0]);
-            }
-            tempBacks.splice(0, 1);
-          }
-        }
+      }
     }
-      console.log("Team A");
-      console.log("_______");
-      console.log(TeamA);
-      console.log("Team B");
-      console.log("_______");
-      console.log(TeamB);
-      console.log("Team C");
-      console.log("_______");
-      console.log(TeamC);
+  }
+
+  function checkGrade() {
+    var gradeA = 0;
+    var gradeB = 0;
+    var gradeC = 0;
+    for (var i = 0; i < tempTeamA.length; i++) {
+      gradeA = gradeA + tempTeamA[i].grade;
     }
+    for (var i = 0; i < tempTeamB.length; i++) {
+      gradeB = gradeB + tempTeamB[i].grade;
+    }
+    for (var i = 0; i < tempTeamC.length; i++) {
+      gradeC = gradeC + tempTeamC[i].grade;
+    }
+    const Grades = { gradeA, gradeB, gradeC };
+    return Grades;
+  }
+  function checkNumberOfPlayers() {
+    var playersA = tempTeamA.length;
+    var playersB = tempTeamB.length;
+    var playersC = tempTeamC.length;
+    const NumberOfPlayers = { playersA, playersB, playersC };
+    return NumberOfPlayers;
+  }
+
+  function step4() {
+    var grades = checkGrade();
+    const numOfPlayers = checkNumberOfPlayers();
+    if (
+      numOfPlayers.playersA === numOfPlayers.playersB &&
+      numOfPlayers.playersB === numOfPlayers.playersC
+    ) {}
+    
+    if (
+      numOfPlayers.playersA > numOfPlayers.playersB ||
+      numOfPlayers.playersA > numOfPlayers.playersC
+    ) {
+      tempTeamA.push(tempAttackers[0]);
+      tempAttackers.splice(0, 1);
+    }
+    if (
+      numOfPlayers.playersB > numOfPlayers.playersA ||
+      numOfPlayers.playersB > numOfPlayers.playersC
+    ) {
+      tempTeamB.push(tempAttackers[0]);
+      tempAttackers.splice(0, 1);
+    }
+    if (
+      numOfPlayers.playersC > numOfPlayers.playersA ||
+      numOfPlayers.playersC > numOfPlayers.playersB
+    ) {
+      tempTeamC.push(tempAttackers[0]);
+      tempAttackers.splice(0, 1);
+    }
+    grades = checkGrade();
+    console.log(grades)
+
   }
 
   return (
@@ -257,6 +311,7 @@ function AfterForce() {
 
       <View style={styles.buttonsContainer}>
         <PrimaryButton onPress={step1}>step1</PrimaryButton>
+        <PrimaryButton onPress={step4}>step4</PrimaryButton>
         <PrimaryButton onPress={backNow}>Back to choose</PrimaryButton>
       </View>
     </View>
