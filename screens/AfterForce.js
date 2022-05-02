@@ -429,8 +429,10 @@ function AfterForce() {
     for (var i = 0; i < 6; i++) {
       if (grades[0].team === "teamA" && grades[2].team === "teamB") {
         console.log('if 1')
-        console.log(TeamA[i].grade - TeamB[i].grade <= difference)
-        if (TeamA[i].grade - TeamB[i].grade <= difference) {
+        const myDifference = Math.abs(TeamA[i].grade - TeamB[i].grade)
+        console.log(Math.abs(myDifference <= difference)) 
+        console.log(Math.abs(myDifference <= difference)) && (myDifference != 0)
+        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
           const playerA = TeamA[i];
           const playerB = TeamB[i];
           TeamA[i] === playerB;
@@ -439,8 +441,10 @@ function AfterForce() {
       }
       if (grades[0].team === "teamA" && grades[2].team === "teamC") {
         console.log('if 2')
-        console.log(TeamA[i].grade - TeamC[i].grade <= difference)
-        if (TeamA[i].grade - TeamC[i].grade <= difference) {
+        const myDifference = Math.abs(TeamA[i].grade - TeamC[i].grade)
+        console.log(Math.abs(myDifference <= difference))
+        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
+        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
           const playerA = TeamA[i];
           const playerC = TeamC[i];
           TeamA[i] === playerC;
@@ -449,8 +453,10 @@ function AfterForce() {
       }
       if (grades[0].team === "teamB" && grades[2].team === "teamA") {
         console.log('if 3')
-        console.log(TeamB[i].grade - TeamA[i].grade <= difference)
-        if (TeamB[i].grade - TeamA[i].grade <= difference) {
+        const myDifference = Math.abs(TeamB[i].grade - TeamA[i].grade)
+        console.log(Math.abs(myDifference <= difference))
+        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
+        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
           const playerB = TeamB[i];
           const playerA = TeamA[i];
           TeamB[i] === playerA;
@@ -459,8 +465,10 @@ function AfterForce() {
       }
       if (grades[0].team === "teamB" && grades[2].team === "teamC") {
         console.log('if 4')
-        console.log(TeamB[i].grade - TeamC[i].grade <= difference)
-        if (TeamB[i].grade - TeamC[i].grade <= difference) {
+        const myDifference = Math.abs(TeamB[i].grade - TeamC[i].grade)
+        console.log(Math.abs(myDifference <= difference))
+        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
+        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
           const playerB = TeamC[i];
           const playerC = TeamC[i];
           TeamC[i] === playerC;
@@ -469,8 +477,10 @@ function AfterForce() {
       }
       if (grades[0].team === "teamC" && grades[2].team === "teamA") {
         console.log('if 5')
-        console.log(TeamC[i].grade - TeamA[i].grade <= difference)
-        if (TeamC[i].grade - TeamA[i].grade <= difference) {
+        const myDifference = Math.abs(TeamC[i].grade - TeamA[i].grade)
+        console.log(Math.abs(myDifference <= difference))
+        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
+        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
           const playerC = TeamC[i];
           const playerA = TeamA[i];
           TeamC[i] === playerA;
@@ -479,8 +489,10 @@ function AfterForce() {
       }
       if (grades[0].team === "teamC" && grades[2].team === "teamB") {
         console.log('if 6')
-        console.log(TeamC[i].grade - TeamB[i].grade <= difference)
-        if (TeamC[i].grade - TeamB[i].grade <= difference) {
+        const myDifference = Math.abs(TeamC[i].grade - TeamB[i].grade)
+        console.log(Math.abs(myDifference <= difference))
+        console.log((Math.abs(myDifference <= difference) && (myDifference != 0)))
+        if (Math.abs(myDifference <= difference) && (myDifference != 0)){
           const playerC = TeamC[i];
           const playerB = TeamB[i];
           TeamC[i] === playerB;
