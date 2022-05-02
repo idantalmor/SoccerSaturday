@@ -1,3 +1,4 @@
+<script src="http://localhost:8097"></script>;
 import { Text, View, FlatList, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -217,49 +218,74 @@ function AfterForce() {
 
   function step4() {
     var numOfPlayers = checkNumberOfPlayers();
+    const teams = [];
     if (
       numOfPlayers.playersA > numOfPlayers.playersB ||
-      numOfPlayers.playersA > numOfPlayers.playersC
+      numOfPlayers.playersA > numOfPlayers.playersB
     ) {
-      const num = getRandomInt(1, 2);
-      if (num === 1) {
-        tempTeamA.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-      }
-      if (num === 2) {
-        tempTeamA.push(tempAttackers[1]);
-        tempAttackers.splice(1, 2);
-      }
+      teams.push("TeamA");
     }
     if (
       numOfPlayers.playersB > numOfPlayers.playersA ||
       numOfPlayers.playersB > numOfPlayers.playersC
     ) {
-      const num = getRandomInt(1, 2);
-      if (num === 1) {
-        tempTeamB.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-      }
-      if (num === 2) {
-        tempTeamB.push(tempAttackers[1]);
-        tempAttackers.splice(1, 2);
-      }
+      teams.push("TeamB");
     }
     if (
       numOfPlayers.playersC > numOfPlayers.playersA ||
       numOfPlayers.playersC > numOfPlayers.playersB
     ) {
-      const num = getRandomInt(1, 2);
-      console.log(num);
-      var grades = checkGrade();
-      console.log(grades);
-      if (num === 1) {
-        tempTeamC.push(tempAttackers[0]);
+      teams.push("TeamC");
+    }
+    if (teams.length === 1) {
+      if (teams[0] === "TeamA" || teams[1] === "TeamA") {
+        TeamA.push(tempAttackers[0]);
         tempAttackers.splice(0, 1);
       }
-      if (num === 2) {
-        tempTeamC.push(tempAttackers[1]);
-        tempAttackers.splice(1, 2);
+      if (teams[0] === "TeamB" || teams[1] === "TeamB") {
+        TeamB.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (teams[0] === "TeamC" || teams[1] === "TeamC") {
+        TeamC.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+    }
+    console.log(teams)
+    console.log(teams.length)
+    if (teams.length === 2) {
+      if (teams[0] == "TeamA" || teams[1] == "TeamA") {
+        const num = getRandomInt(1, 2);
+        if (num === 1) {
+          TeamA.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+        }
+        if (num === 2) {
+          TeamA.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+        }
+      }
+      if (teams[0] == "TeamB" || teams[1] == "TeamB") {
+        const num = getRandomInt(1, 2);
+        if (num === 1) {
+          TeamB.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+        }
+        if (num === 2) {
+          TeamB.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+        }
+      }
+      if (teams[0] == "TeamC" || teams[1] == "TeamC") {
+        const num = getRandomInt(1, 2);
+        if (num === 1) {
+          TeamC.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+        }
+        if (num === 2) {
+          TeamC.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+        }
       }
     }
     step5();
@@ -267,38 +293,98 @@ function AfterForce() {
 
   function step5() {
     var numOfPlayers = checkNumberOfPlayers();
+    console.log("now:" + tempAttackers.length);
     while (
       numOfPlayers.playersA != numOfPlayers.playersB ||
-      numOfPlayers.playersB != numOfPlayers.playersC
+      numOfPlayers.playersB != numOfPlayers.playersC ||
+      numOfPlayers.playersA != numOfPlayers.playersC
     ) {
-      if (
-        numOfPlayers.playersA < numOfPlayers.playersB ||
-        numOfPlayers.playersA < numOfPlayers.playersC
-      ) {
-        tempTeamA.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-      }
-      if (
-        numOfPlayers.playersB < numOfPlayers.playersA ||
-        numOfPlayers.playersB < numOfPlayers.playersC
-      ) {
-        tempTeamB.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-      }
-      if (
-        numOfPlayers.playersC < numOfPlayers.playersA ||
-        numOfPlayers.playersC < numOfPlayers.playersB
-      ) {
-        tempTeamC.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-      }
-      var numOfPlayers = checkNumberOfPlayers();
+    const teams = [];
+    if (
+      numOfPlayers.playersA < numOfPlayers.playersB ||
+      numOfPlayers.playersA < numOfPlayers.playersB
+    ) {
+      teams.push("TeamA");
     }
-    var grades = checkGrade();
-    console.log(grades);
-    console.log(tempAttackers.length);
+    if (
+      numOfPlayers.playersB < numOfPlayers.playersA ||
+      numOfPlayers.playersB < numOfPlayers.playersC
+    ) {
+      teams.push("TeamB");
+    }
+    if (
+      numOfPlayers.playersC < numOfPlayers.playersA ||
+      numOfPlayers.playersC < numOfPlayers.playersB
+    ) {
+      teams.push("TeamC");
+    }
+    if (teams.length === 1) {
+      if (teams[0] === "TeamA" || teams[1] === "TeamA") {
+        TeamA.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+        console.log(tempAttackers.length);
+      }
+      if (teams[0] === "TeamB" || teams[1] === "TeamB") {
+        TeamB.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+        console.log(tempAttackers.length);
+      }
+      if (teams[0] === "TeamC" || teams[1] === "TeamC") {
+        TeamC.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+        console.log(tempAttackers.length);
+      }
+    }
+    if (teams.length === 2) {
+      if (teams[0] != "TeamA" && teams[1] != "TeamA") {
+        const num = getRandomInt(1, 2);
+        if (num === 1) {
+          TeamB.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+          console.log(tempAttackers.length);
+        }
+        if (num === 2) {
+          TeamC.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+          console.log(tempAttackers.length);
+        }
+      }
+      if (teams[0] != "TeamB" && teams[1] != "TeamB") {
+        const num = getRandomInt(1, 2);
+        if (num === 1) {
+          TeamA.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+          console.log(tempAttackers.length);
+        }
+        if (num === 2) {
+          TeamC.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+          console.log(tempAttackers.length);
+        }
+      }
+      if (teams[0] != "TeamC" && teams[1] != "TeamC") {
+        const num = getRandomInt(1, 2);
+        if (num === 1) {
+          TeamA.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+          console.log(tempAttackers.length);
+        }
+        if (num === 2) {
+          TeamB.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
+          console.log(tempAttackers.length);
+        }
+      }
+    }
+    numOfPlayers = checkNumberOfPlayers();
+    }
+    step6()
   }
 
+  function step6(){
+    var grades = checkGrade();
+    console.log(grades)
+  }
 
   return (
     <View style={styles.rootContainer}>
