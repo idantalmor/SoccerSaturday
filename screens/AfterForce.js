@@ -189,7 +189,7 @@ function AfterForce() {
         }
       }
     }
-    step4()
+    step4();
   }
 
   function checkGrade() {
@@ -205,7 +205,12 @@ function AfterForce() {
     for (var i = 0; i < tempTeamC.length; i++) {
       gradeC = gradeC + tempTeamC[i].grade;
     }
-    const Grades = { gradeA, gradeB, gradeC };
+    const Grades = [
+      { team: "teamA", grade: gradeA },
+      { team: "teamB", grade: gradeB },
+      { team: "teamC", grade: gradeC },
+    ];
+    Grades.sort((a, b) => (a.grade < b.grade ? 1 : -1));
     return Grades;
   }
   function checkNumberOfPlayers() {
@@ -251,8 +256,6 @@ function AfterForce() {
         tempAttackers.splice(0, 1);
       }
     }
-    console.log(teams)
-    console.log(teams.length)
     if (teams.length === 2) {
       if (teams[0] == "TeamA" || teams[1] == "TeamA") {
         const num = getRandomInt(1, 2);
@@ -293,97 +296,202 @@ function AfterForce() {
 
   function step5() {
     var numOfPlayers = checkNumberOfPlayers();
-    console.log("now:" + tempAttackers.length);
     while (
       numOfPlayers.playersA != numOfPlayers.playersB ||
       numOfPlayers.playersB != numOfPlayers.playersC ||
       numOfPlayers.playersA != numOfPlayers.playersC
     ) {
-    const teams = [];
-    if (
-      numOfPlayers.playersA < numOfPlayers.playersB ||
-      numOfPlayers.playersA < numOfPlayers.playersB
-    ) {
-      teams.push("TeamA");
-    }
-    if (
-      numOfPlayers.playersB < numOfPlayers.playersA ||
-      numOfPlayers.playersB < numOfPlayers.playersC
-    ) {
-      teams.push("TeamB");
-    }
-    if (
-      numOfPlayers.playersC < numOfPlayers.playersA ||
-      numOfPlayers.playersC < numOfPlayers.playersB
-    ) {
-      teams.push("TeamC");
-    }
-    if (teams.length === 1) {
-      if (teams[0] === "TeamA" || teams[1] === "TeamA") {
-        TeamA.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-        console.log(tempAttackers.length);
+      const teams = [];
+      if (
+        numOfPlayers.playersA < numOfPlayers.playersB ||
+        numOfPlayers.playersA < numOfPlayers.playersB
+      ) {
+        teams.push("TeamA");
       }
-      if (teams[0] === "TeamB" || teams[1] === "TeamB") {
-        TeamB.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-        console.log(tempAttackers.length);
+      if (
+        numOfPlayers.playersB < numOfPlayers.playersA ||
+        numOfPlayers.playersB < numOfPlayers.playersC
+      ) {
+        teams.push("TeamB");
       }
-      if (teams[0] === "TeamC" || teams[1] === "TeamC") {
-        TeamC.push(tempAttackers[0]);
-        tempAttackers.splice(0, 1);
-        console.log(tempAttackers.length);
+      if (
+        numOfPlayers.playersC < numOfPlayers.playersA ||
+        numOfPlayers.playersC < numOfPlayers.playersB
+      ) {
+        teams.push("TeamC");
       }
-    }
-    if (teams.length === 2) {
-      if (teams[0] != "TeamA" && teams[1] != "TeamA") {
-        const num = getRandomInt(1, 2);
-        if (num === 1) {
-          TeamB.push(tempAttackers[0]);
-          tempAttackers.splice(0, 1);
-          console.log(tempAttackers.length);
-        }
-        if (num === 2) {
-          TeamC.push(tempAttackers[0]);
-          tempAttackers.splice(0, 1);
-          console.log(tempAttackers.length);
-        }
-      }
-      if (teams[0] != "TeamB" && teams[1] != "TeamB") {
-        const num = getRandomInt(1, 2);
-        if (num === 1) {
+      if (teams.length === 1) {
+        if (teams[0] === "TeamA" || teams[1] === "TeamA") {
           TeamA.push(tempAttackers[0]);
           tempAttackers.splice(0, 1);
-          console.log(tempAttackers.length);
         }
-        if (num === 2) {
-          TeamC.push(tempAttackers[0]);
-          tempAttackers.splice(0, 1);
-          console.log(tempAttackers.length);
-        }
-      }
-      if (teams[0] != "TeamC" && teams[1] != "TeamC") {
-        const num = getRandomInt(1, 2);
-        if (num === 1) {
-          TeamA.push(tempAttackers[0]);
-          tempAttackers.splice(0, 1);
-          console.log(tempAttackers.length);
-        }
-        if (num === 2) {
+        if (teams[0] === "TeamB" || teams[1] === "TeamB") {
           TeamB.push(tempAttackers[0]);
           tempAttackers.splice(0, 1);
-          console.log(tempAttackers.length);
+        }
+        if (teams[0] === "TeamC" || teams[1] === "TeamC") {
+          TeamC.push(tempAttackers[0]);
+          tempAttackers.splice(0, 1);
         }
       }
+      if (teams.length === 2) {
+        if (teams[0] != "TeamA" && teams[1] != "TeamA") {
+          const num = getRandomInt(1, 2);
+          if (num === 1) {
+            TeamB.push(tempAttackers[0]);
+            tempAttackers.splice(0, 1);
+          }
+          if (num === 2) {
+            TeamC.push(tempAttackers[0]);
+            tempAttackers.splice(0, 1);
+          }
+        }
+        if (teams[0] != "TeamB" && teams[1] != "TeamB") {
+          const num = getRandomInt(1, 2);
+          if (num === 1) {
+            TeamA.push(tempAttackers[0]);
+            tempAttackers.splice(0, 1);
+          }
+          if (num === 2) {
+            TeamC.push(tempAttackers[0]);
+            tempAttackers.splice(0, 1);
+          }
+        }
+        if (teams[0] != "TeamC" && teams[1] != "TeamC") {
+          const num = getRandomInt(1, 2);
+          if (num === 1) {
+            TeamA.push(tempAttackers[0]);
+            tempAttackers.splice(0, 1);
+          }
+          if (num === 2) {
+            TeamB.push(tempAttackers[0]);
+            tempAttackers.splice(0, 1);
+          }
+        }
+      }
+      numOfPlayers = checkNumberOfPlayers();
     }
-    numOfPlayers = checkNumberOfPlayers();
-    }
-    step6()
+    step6();
   }
 
-  function step6(){
+  function step6() {
     var grades = checkGrade();
-    console.log(grades)
+    var badTeam = grades[2].team;
+    var middleTeam = grades[1].team;
+    var bestTeam = grades[0].team;
+    while (tempAttackers.length > 0) {
+      if (badTeam === "teamA") {
+        TeamA.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (badTeam === "teamB") {
+        TeamB.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (badTeam === "teamC") {
+        TeamC.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (middleTeam === "teamA") {
+        TeamA.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (middleTeam === "teamB") {
+        TeamB.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (middleTeam === "teamC") {
+        TeamC.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (bestTeam === "teamA") {
+        TeamA.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (bestTeam === "teamB") {
+        TeamB.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+      if (bestTeam === "teamC") {
+        TeamC.push(tempAttackers[0]);
+        tempAttackers.splice(0, 1);
+      }
+    }
+    TeamA.sort((a, b) => (a.grade < b.grade ? 1 : -1));
+    TeamB.sort((a, b) => (a.grade < b.grade ? 1 : -1));
+    TeamC.sort((a, b) => (a.grade < b.grade ? 1 : -1));
+  }
+  function step7() {
+    var grades = checkGrade();
+    console.log(grades);
+    const difference = (grades[0].grade - grades[2].grade) / 2;
+    console.log("the difference is:" + difference);
+    for (var i = 0; i < 6; i++) {
+      if (grades[0].team === "teamA" && grades[2].team === "teamB") {
+        console.log('if 1')
+        console.log(TeamA[i].grade - TeamB[i].grade <= difference)
+        if (TeamA[i].grade - TeamB[i].grade <= difference) {
+          const playerA = TeamA[i];
+          const playerB = TeamB[i];
+          TeamA[i] === playerB;
+          TeamB[i] === playerA;
+        }
+      }
+      if (grades[0].team === "teamA" && grades[2].team === "teamC") {
+        console.log('if 2')
+        console.log(TeamA[i].grade - TeamC[i].grade <= difference)
+        if (TeamA[i].grade - TeamC[i].grade <= difference) {
+          const playerA = TeamA[i];
+          const playerC = TeamC[i];
+          TeamA[i] === playerC;
+          TeamC[i] === playerA;
+        }
+      }
+      if (grades[0].team === "teamB" && grades[2].team === "teamA") {
+        console.log('if 3')
+        console.log(TeamB[i].grade - TeamA[i].grade <= difference)
+        if (TeamB[i].grade - TeamA[i].grade <= difference) {
+          const playerB = TeamB[i];
+          const playerA = TeamA[i];
+          TeamB[i] === playerA;
+          TeamA[i] === playerB;
+        }
+      }
+      if (grades[0].team === "teamB" && grades[2].team === "teamC") {
+        console.log('if 4')
+        console.log(TeamB[i].grade - TeamC[i].grade <= difference)
+        if (TeamB[i].grade - TeamC[i].grade <= difference) {
+          const playerB = TeamC[i];
+          const playerC = TeamC[i];
+          TeamC[i] === playerC;
+          TeamB[i] === playerB;
+        }
+      }
+      if (grades[0].team === "teamC" && grades[2].team === "teamA") {
+        console.log('if 5')
+        console.log(TeamC[i].grade - TeamA[i].grade <= difference)
+        if (TeamC[i].grade - TeamA[i].grade <= difference) {
+          const playerC = TeamC[i];
+          const playerA = TeamA[i];
+          TeamC[i] === playerA;
+          TeamA[i] === playerC;
+        }
+      }
+      if (grades[0].team === "teamC" && grades[2].team === "teamB") {
+        console.log('if 6')
+        console.log(TeamC[i].grade - TeamB[i].grade <= difference)
+        if (TeamC[i].grade - TeamB[i].grade <= difference) {
+          const playerC = TeamC[i];
+          const playerB = TeamB[i];
+          TeamC[i] === playerB;
+          TeamB[i] === playerC;
+        }
+      }
+    }
+  }
+  function step8() {
+    var grades = checkGrade();
+    console.log("now: " + grades);
   }
 
   return (
@@ -449,6 +557,9 @@ function AfterForce() {
 
       <View style={styles.buttonsContainer}>
         <PrimaryButton onPress={step1}>step1</PrimaryButton>
+        <PrimaryButton onPress={step7}>step7</PrimaryButton>
+        <PrimaryButton onPress={step8}>step8</PrimaryButton>
+
         <PrimaryButton onPress={backNow}>Back to choose</PrimaryButton>
       </View>
     </View>
