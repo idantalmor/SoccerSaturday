@@ -17,40 +17,40 @@ function FormFormation(props) {
       const GoalAttackName1 = stringArray5[2]
       const GoalAttackName2 = stringArray6[2]
       const GoalAttackName3 = stringArray7[2]
-      console.log(GoalkeeperName)
-      console.log(GoalBackName1)
-      console.log(GoalBackName2)
-      console.log(GoalBackName3)
-      console.log(GoalAttackName1)
-      console.log(GoalAttackName2)
-      console.log(GoalAttackName3)
+      const number1 = props.Team[0].favoriteNumber
+      const number2 = props.Team[1].favoriteNumber
+      const number3 = props.Team[2].favoriteNumber
+      const number4 = props.Team[3].favoriteNumber
+      const number5 = props.Team[4].favoriteNumber
+      const number6 = props.Team[5].favoriteNumber
+      const number7 = props.Team[6].favoriteNumber
 
   return (
     <View>
         <View style={styles.positionAttack1}>
-          <Shirt name={GoalAttackName3} />
+          <Shirt name={GoalAttackName3} number={number7} />
         </View>
         <View style={styles.positionAttack4}>
           <View>
-            <Shirt name={GoalAttackName2} />
+            <Shirt name={GoalAttackName2} number={number6} />
           </View>
           <View>
-            <Shirt name={GoalAttackName1} />
+            <Shirt name={GoalAttackName1} number={number5} />
           </View>
         </View>
-        <View style={styles.positionDefense2}>
+        <View style={styles.positionDefense2} >
           <View>
-            <Shirt name={GoalBackName3} />
+            <Shirt name={GoalBackName3}  number={number4} />
           </View>
           <View style={styles.positionDefense3}>
-            <Shirt name={GoalBackName2} />
+            <Shirt name={GoalBackName2}  number={number3}/>
           </View>
           <View>
-            <Shirt name={GoalBackName1} />
+            <Shirt name={GoalBackName1}  number={number2}/>
           </View>
         </View>
         <View style={styles.positionGoalKeeper}>
-            <Shirt name={GoalkeeperName} />
+            <Shirt name={GoalkeeperName}  number={number1} />
           </View>
     </View>
   );

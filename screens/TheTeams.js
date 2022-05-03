@@ -10,18 +10,18 @@ function TheTeams() {
   const [Players, setPlayers] = useState(route.params.Players);
   const ArrayGoalKeeper = Players.filter(function (item) {
     return item.role == "GoalKeeper";
-  }).map(function ({ id, fullName, role, grade }) {
-    return { id, fullName, role, grade };
+  }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
+    return { id, fullName, role, grade, favoriteNumber };
   });
   const ArrayBack = Players.filter(function (item) {
     return item.role == "Defense";
-  }).map(function ({ id, fullName, role, grade }) {
-    return { id, fullName, role, grade };
+  }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
+    return { id, fullName, role, grade, favoriteNumber };
   });
   const ArrayAttack = Players.filter(function (item) {
     return item.role == "Attack";
-  }).map(function ({ id, fullName, role, grade }) {
-    return { id, fullName, role, grade };
+  }).map(function ({ id, fullName, role, grade,favoriteNumber }) {
+    return { id, fullName, role, grade, favoriteNumber };
   });
   function renderGoalKeeper(itemData) {
     return <Text>{itemData.item.fullName}</Text>;

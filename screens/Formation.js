@@ -5,12 +5,6 @@ import Shirt from "../components/Formation/Shirt";
 import PrimaryButton from "../components/MakeTeams/Button";
 import FormFormation from "../components/AfterForce/FormFormation";
 function Formation(props) {
-  // if ({Team}[0].fullName != undefined)
-  // {
-  //     const stringArray = props.Team[0].fullName.split(/(\s+)/)
-  //     const GoalkeeperName = stringArray[2]
-  //     console.log(GoalkeeperName)
-  // }
   return (
     <Modal visible={props.visible} animationType="slide">
       <ImageBackground source={require("../assets/formation.png")}
