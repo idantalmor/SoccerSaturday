@@ -26,6 +26,7 @@ function AfterForce() {
   const [TeamA, setTeamA] = useState([]);
   const [TeamB, setTeamB] = useState([]);
   const [TeamC, setTeamC] = useState([]);
+  const [currentTeam, setCurrentTeam] = useState(TeamA);
   const tempTeamA = TeamA;
   const tempTeamB = TeamB;
   const tempTeamC = TeamC;
@@ -35,10 +36,12 @@ function AfterForce() {
   function backNow() {
     navigation.navigate("ChoosePlayers");
   }
-  function showFormation() {
+  function showFormation(currentTeam) {
+    setCurrentTeam(currentTeam)
     setFormationIsVisible(true);
   }
   function hideFormation() {
+    setCurrentTeam(TeamA)
     setFormationIsVisible(false);
   }
 
@@ -424,12 +427,9 @@ function AfterForce() {
   }
   function step7() {
     var grades = checkGrade();
-    console.log(grades);
     const difference = (grades[0].grade - grades[2].grade) / 2;
-    console.log("the difference is:" + difference);
     for (var i = 0; i < 6; i++) {
       if (grades[0].team === "teamA" && grades[2].team === "teamB") {
-        console.log("if 1");
         const playerA = TeamA[i];
         const playerAGrade = playerA.grade;
         for (var j = 0; j < 6; j++) {
@@ -437,7 +437,6 @@ function AfterForce() {
           const playerBGrade = playerB.grade;
           const myDifference = playerAGrade - playerBGrade;
           if (myDifference <= difference && myDifference > 0) {
-            console.log("if 1 changing");
             if (playerA.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
               potentialChanges.push({ replace1: playerA, replace2: playerB });
               // const tempAFirst = TeamA.slice(0, i);
@@ -453,7 +452,6 @@ function AfterForce() {
         }
       }
       if (grades[0].team === "teamA" && grades[2].team === "teamC") {
-        console.log("if 2");
         const playerA = TeamA[i];
         const playerAGrade = playerA.grade;
         for (var j = 0; j < 6; j++) {
@@ -461,7 +459,6 @@ function AfterForce() {
           const playerCGrade = playerC.grade;
           const myDifference = playerAGrade - playerCGrade;
           if (myDifference <= difference && myDifference > 0) {
-            console.log("if 2 changing");
             if (playerA.role != "GoalKeeper" && playerC.role != "GoalKeeper") {
               potentialChanges.push({ replace1: playerA, replace2: playerC });
               // const tempAFirst = TeamA.slice(0, i);
@@ -477,7 +474,6 @@ function AfterForce() {
         }
       }
       if (grades[0].team === "teamB" && grades[2].team === "teamA") {
-        console.log("if 3");
         const playerB = TeamB[i];
         const playerBGrade = playerB.grade;
         for (var j = 0; j < 6; j++) {
@@ -485,7 +481,6 @@ function AfterForce() {
           const playerAGrade = playerA.grade;
           const myDifference = playerBGrade - playerAGrade;
           if (myDifference <= difference && myDifference > 0) {
-            console.log("if 3 changing");
             if (playerA.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
               potentialChanges.push({ replace1: playerB, replace2: playerA });
               // const tempBFirst = TeamB.slice(0, i);
@@ -501,7 +496,6 @@ function AfterForce() {
         }
       }
       if (grades[0].team === "teamB" && grades[2].team === "teamC") {
-        console.log("if 4");
         const playerB = TeamB[i];
         const playerBGrade = playerB.grade;
         for (var j = 0; j < 6; j++) {
@@ -509,7 +503,6 @@ function AfterForce() {
           const playerCGrade = playerC.grade;
           const myDifference = playerBGrade - playerCGrade;
           if (myDifference <= difference && myDifference > 0) {
-            console.log("if 4 changing");
             if (playerC.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
               potentialChanges.push({ replace1: playerB, replace2: playerC });
               // const tempBFirst = TeamB.slice(0, i);
@@ -525,7 +518,6 @@ function AfterForce() {
         }
       }
       if (grades[0].team === "teamC" && grades[2].team === "teamA") {
-        console.log("if 5");
         const playerC = TeamC[i];
         const playerCGrade = playerC.grade;
         for (var j = 0; j < 6; j++) {
@@ -533,7 +525,6 @@ function AfterForce() {
           const playerAGrade = playerA.grade;
           const myDifference = playerCGrade - playerAGrade;
           if (myDifference <= difference && myDifference > 0) {
-            console.log("if 5 changing");
             if (playerA.role != "GoalKeeper" && playerC.role != "GoalKeeper") {
               potentialChanges.push({ replace1: playerC, replace2: playerA });
               // const tempAFirst = TeamA.slice(0, i);
@@ -549,7 +540,6 @@ function AfterForce() {
         }
       }
       if (grades[0].team === "teamC" && grades[2].team === "teamB") {
-        console.log("if 6");
         const playerC = TeamC[i];
         const playerCGrade = playerC.grade;
         for (var j = 0; j < 6; j++) {
@@ -557,7 +547,6 @@ function AfterForce() {
           const playerBGrade = playerB.grade;
           const myDifference = playerCGrade - playerBGrade;
           if (myDifference <= difference && myDifference > 0) {
-            console.log("if 6 changing");
             if (playerC.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
               potentialChanges.push({ replace1: playerC, replace2: playerB });
               // const tempBFirst = TeamB.slice(0, i);
@@ -572,17 +561,14 @@ function AfterForce() {
           }
         }
       }
-      console.log(potentialChanges);
       step8();
     }
   }
   function step8() {
     var grades = checkGrade();
-    console.log("now: " + grades);
     var potentialChanges2 = potentialChanges.filter(
       (pilot) => pilot.replace1.role == pilot.replace2.role
     );
-    console.log(potentialChanges2);
     TeamA.sort((a, b) => (a.role < b.role ? 1 : -1));
     TeamB.sort((a, b) => (a.role < b.role ? 1 : -1));
     TeamC.sort((a, b) => (a.role < b.role ? 1 : -1));
@@ -600,7 +586,7 @@ function AfterForce() {
         imageStyle={styles.backgroundImage}
       >
         <View>
-          <Formation visible={formationIsVisible} onBack={hideFormation} />
+          <Formation visible={formationIsVisible} onBack={hideFormation} Team={currentTeam} />
         </View>
         <View style={styles.rootContainer}>
           <View style={styles.buttonsContainer}>
@@ -617,7 +603,7 @@ function AfterForce() {
                 renderItem={renderPlayers}
                 numColumns={1}
               />
-              <PrimaryButton onPress={showFormation}>Show</PrimaryButton>
+              <PrimaryButton onPress={showFormation.bind(this,TeamA)} >Show</PrimaryButton>
             </View>
             <View>
               <Title>TeamB</Title>
@@ -627,7 +613,7 @@ function AfterForce() {
                 renderItem={renderPlayers}
                 numColumns={1}
               />
-              <PrimaryButton onPress={showFormation}>Show</PrimaryButton>
+              <PrimaryButton onPress={showFormation.bind(this,TeamB)} >Show</PrimaryButton>
             </View>
             <View>
               <Title>TeamC</Title>
@@ -637,7 +623,7 @@ function AfterForce() {
                 renderItem={renderPlayers}
                 numColumns={1}
               />
-              <PrimaryButton onPress={showFormation}>Show</PrimaryButton>
+              <PrimaryButton onPress={showFormation.bind(this,TeamC)} >Show</PrimaryButton>
             </View>
           </View>
         </View>

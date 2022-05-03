@@ -1,22 +1,27 @@
-import { Text, View, ImageBackground, StyleSheet,Modal } from "react-native";
+import { Text, View, ImageBackground, StyleSheet, Modal } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import Shirt from "../components/Formation/Shirt";
 import PrimaryButton from "../components/MakeTeams/Button";
+import FormFormation from "../components/AfterForce/FormFormation";
 function Formation(props) {
+  // if ({Team}[0].fullName != undefined)
+  // {
+  //     const stringArray = props.Team[0].fullName.split(/(\s+)/)
+  //     const GoalkeeperName = stringArray[2]
+  //     console.log(GoalkeeperName)
+  // }
   return (
     <Modal visible={props.visible} animationType="slide">
-    <ImageBackground
-      source={require("../assets/formation.png")}
-      resizeMode="cover"
-      style={styles.rootScreen}
-      imageStyle={styles.backgroundImage}
-    >
-      <View>
-        <Shirt name={'check'} style={styles.positionAttack1} />
-      </View>
-    </ImageBackground>
-    <PrimaryButton style={styles.positionButton} onPress={props.onBack}>Go back</PrimaryButton>
+      <ImageBackground source={require("../assets/formation.png")}
+        resizeMode="cover"
+        style={styles.rootScreen}
+        imageStyle={styles.backgroundImage}>
+        <FormFormation Team={props.Team} />
+      </ImageBackground>
+      <PrimaryButton style={styles.positionButton} onPress={props.onBack}>
+        Go back
+      </PrimaryButton>
     </Modal>
   );
 }
@@ -33,8 +38,24 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   positionAttack1: {
-      
+    alignItems: "center",
+    paddingVertical: 40,
   },
-  positionAttack2: {},
-  positionAttack3: {},
+  positionAttack4: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+  positionDefense2: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 40,
+  },
+  positionDefense3: {
+    paddingVertical: 50,
+  },
+  positionGoalKeeper: {
+    marginVertical: -60,
+    alignItems: "center",
+  },
 });

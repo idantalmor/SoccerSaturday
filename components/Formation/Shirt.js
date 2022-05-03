@@ -1,12 +1,14 @@
 import { View,Text,Image,StyleSheet, ImageBackground } from "react-native";
 
 function Shirt({name}){
-    var stringArray = name.split(/(\s+)/);
-    const lastName = stringArray[2]
+    // var stringArray = name.split(/(\s+)/);
+    // const lastName = stringArray[2]
     return(
         <View style={styles.imageWrapper}>
             <ImageBackground style={styles.theImage}  source={require('../../assets/shirt.png')}>
-                <Text>{lastName}</Text>
+                <View style={styles.textContainer}>
+                <Text style={styles.textStyle}>{name}</Text>
+                </View>
                 </ImageBackground>
             
         </View>
@@ -27,6 +29,13 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         alignItems:'center',
         justifyContent:'center'
+    },
+    textStyle:{
+        fontWeight:'bold',
+        fontSize: 10,
+    },
+    textContainer:{
+        paddingVertical: 10,
     }
     
 })
