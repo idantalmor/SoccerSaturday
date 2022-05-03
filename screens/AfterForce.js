@@ -423,83 +423,157 @@ function AfterForce() {
   }
   function step7() {
     var grades = checkGrade();
+    const potentialChanges = [];
     console.log(grades);
     const difference = (grades[0].grade - grades[2].grade) / 2;
     console.log("the difference is:" + difference);
     for (var i = 0; i < 6; i++) {
       if (grades[0].team === "teamA" && grades[2].team === "teamB") {
-        console.log('if 1')
-        const myDifference = Math.abs(TeamA[i].grade - TeamB[i].grade)
-        console.log(Math.abs(myDifference <= difference)) 
-        console.log(Math.abs(myDifference <= difference)) && (myDifference != 0)
-        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
-          const playerA = TeamA[i];
-          const playerB = TeamB[i];
-          TeamA[i] === playerB;
-          TeamB[i] === playerA;
+        console.log("if 1");
+        const playerA = TeamA[i];
+        const playerAGrade = playerA.grade;
+        for (var j = 0; j < 6; j++) {
+          const playerB = TeamB[j];
+          const playerBGrade = playerB.grade;
+          const myDifference = playerAGrade - playerBGrade
+          if ((myDifference <= difference) && (myDifference >0)) {
+            console.log("if 1 changing");
+            if (playerA.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
+              potentialChanges.push({replace1: playerA, replace2: playerB})
+              // const tempAFirst = TeamA.slice(0, i);
+              // const tempASecond = TeamA.slice(i + 1);
+              // const tempAThird = tempAFirst.concat(tempASecond);
+              // tempAThird.push(playerB);
+              // const tempBFirst = TeamB.slice(0, i);
+              // const tempBSecond = TeamB.slice(i + 1);
+              // const tempBThird = tempBFirst.concat(tempBSecond);
+              // tempBThird.push(playerA);
+            }
+          }
         }
       }
       if (grades[0].team === "teamA" && grades[2].team === "teamC") {
-        console.log('if 2')
-        const myDifference = Math.abs(TeamA[i].grade - TeamC[i].grade)
-        console.log(Math.abs(myDifference <= difference))
-        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
-        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
-          const playerA = TeamA[i];
-          const playerC = TeamC[i];
-          TeamA[i] === playerC;
-          TeamC[i] === playerA;
+        console.log("if 2");
+        const playerA = TeamA[i];
+        const playerAGrade = playerA.grade;
+        for (var j = 0; j < 6; j++) {
+          const playerC = TeamC[j];
+          const playerCGrade = playerC.grade;
+          const myDifference = playerAGrade - playerCGrade
+          if ((myDifference <= difference) && (myDifference >0)) {
+            console.log("if 2 changing");
+            if (playerA.role != "GoalKeeper" && playerC.role != "GoalKeeper") {
+              potentialChanges.push({replace1: playerA, replace2: playerC})
+              // const tempAFirst = TeamA.slice(0, i);
+              // const tempASecond = TeamA.slice(i + 1);
+              // const tempAThird = tempAFirst.concat(tempASecond);
+              // tempAThird.push(playerC);
+              // const tempCFirst = TeamC.slice(0, i);
+              // const tempCSecond = TeamC.slice(i + 1);
+              // const tempCThird = tempCFirst.concat(tempCSecond);
+              // tempCThird.push(playerA);
+            }
+          }
         }
       }
       if (grades[0].team === "teamB" && grades[2].team === "teamA") {
-        console.log('if 3')
-        const myDifference = Math.abs(TeamB[i].grade - TeamA[i].grade)
-        console.log(Math.abs(myDifference <= difference))
-        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
-        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
-          const playerB = TeamB[i];
-          const playerA = TeamA[i];
-          TeamB[i] === playerA;
-          TeamA[i] === playerB;
+        console.log("if 3");
+        const playerB = TeamB[i];
+        const playerBGrade = playerB.grade;
+        for (var j = 0; j < 6; j++) {
+          const playerA = TeamA[j];
+          const playerAGrade = playerA.grade;
+          const myDifference = playerBGrade - playerAGrade
+          if ((myDifference <= difference) && (myDifference >0)) {
+            console.log("if 3 changing");
+            if (playerA.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
+              potentialChanges.push({replace1: playerB, replace2: playerA})
+              // const tempBFirst = TeamB.slice(0, i);
+              // const tempBSecond = TeamB.slice(i + 1);
+              // const tempBThird = tempBFirst.concat(tempBSecond);
+              // tempBThird.push(playerA);
+              // const tempAFirst = TeamA.slice(0, i);
+              // const tempASecond = TeamA.slice(i + 1);
+              // const tempAThird = tempAFirst.concat(tempASecond);
+              // tempAThird.push(playerB);
+            }
+          }
         }
       }
       if (grades[0].team === "teamB" && grades[2].team === "teamC") {
-        console.log('if 4')
-        const myDifference = Math.abs(TeamB[i].grade - TeamC[i].grade)
-        console.log(Math.abs(myDifference <= difference))
-        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
-        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
-          const playerB = TeamC[i];
-          const playerC = TeamC[i];
-          TeamC[i] === playerC;
-          TeamB[i] === playerB;
+        console.log("if 4");
+        const playerB = TeamB[i];
+        const playerBGrade = playerB.grade;
+        for (var j = 0; j < 6; j++) {
+          const playerC = TeamC[j];
+          const playerCGrade = playerC.grade;
+          const myDifference = playerBGrade - playerCGrade
+          if ((myDifference <= difference) && (myDifference >0)) {
+            console.log("if 4 changing");
+            if (playerC.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
+              potentialChanges.push({replace1: playerB, replace2: playerC})
+              // const tempBFirst = TeamB.slice(0, i);
+              // const tempBSecond = TeamB.slice(i + 1);
+              // const tempBThird = tempBFirst.concat(tempBSecond);
+              // tempBThird.push(playerC);
+              // const tempCFirst = TeamC.slice(0, i);
+              // const tempCSecond = TeamC.slice(i + 1);
+              // const tempCThird = tempCFirst.concat(tempCSecond);
+              // tempCThird.push(playerB);
+            }
+          }
         }
       }
       if (grades[0].team === "teamC" && grades[2].team === "teamA") {
-        console.log('if 5')
-        const myDifference = Math.abs(TeamC[i].grade - TeamA[i].grade)
-        console.log(Math.abs(myDifference <= difference))
-        console.log(Math.abs(myDifference <= difference) && (myDifference != 0))
-        if (Math.abs(myDifference <= difference) && (myDifference != 0)) {
-          const playerC = TeamC[i];
-          const playerA = TeamA[i];
-          TeamC[i] === playerA;
-          TeamA[i] === playerC;
+        console.log("if 5");
+        const playerC = TeamC[i];
+        const playerCGrade = playerC.grade;
+        for (var j = 0; j < 6; j++) {
+          const playerA = TeamA[j];
+          const playerAGrade = playerA.grade;
+          const myDifference = playerCGrade - playerAGrade
+          if ((myDifference <= difference) && (myDifference >0)) {
+            console.log("if 5 changing");
+            if (playerA.role != "GoalKeeper" && playerC.role != "GoalKeeper") {
+              potentialChanges.push({replace1: playerC, replace2: playerA})
+              // const tempAFirst = TeamA.slice(0, i);
+              // const tempASecond = TeamA.slice(i + 1);
+              // const tempAThird = tempAFirst.concat(tempASecond);
+              // tempAThird.push(playerC);
+              // const tempCFirst = TeamC.slice(0, i);
+              // const tempCSecond = TeamC.slice(i + 1);
+              // const tempCThird = tempCFirst.concat(tempCSecond);
+              // tempCThird.push(playerA);
+            }
+          }
         }
       }
       if (grades[0].team === "teamC" && grades[2].team === "teamB") {
-        console.log('if 6')
-        const myDifference = Math.abs(TeamC[i].grade - TeamB[i].grade)
-        console.log(Math.abs(myDifference <= difference))
-        console.log((Math.abs(myDifference <= difference) && (myDifference != 0)))
-        if (Math.abs(myDifference <= difference) && (myDifference != 0)){
-          const playerC = TeamC[i];
-          const playerB = TeamB[i];
-          TeamC[i] === playerB;
-          TeamB[i] === playerC;
+        console.log("if 6");
+        const playerC = TeamC[i];
+        const playerCGrade = playerC.grade;
+        for (var j = 0; j < 6; j++) {
+          const playerB = TeamB[j];
+          const playerBGrade = playerB.grade;
+          const myDifference = playerCGrade - playerBGrade
+          if ((myDifference <= difference) && (myDifference >0)) {
+            console.log("if 6 changing");
+            if (playerC.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
+              potentialChanges.push({replace1: playerC, replace2: playerB})
+              // const tempBFirst = TeamB.slice(0, i);
+              // const tempBSecond = TeamB.slice(i + 1);
+              // const tempBThird = tempBFirst.concat(tempBSecond);
+              // tempBThird.push(playerC);
+              // const tempCFirst = TeamC.slice(0, i);
+              // const tempCSecond = TeamC.slice(i + 1);
+              // const tempCThird = tempCFirst.concat(tempCSecond);
+              // tempCThird.push(playerB);
+            }
+          }
         }
       }
     }
+    console.log(potentialChanges)
   }
   function step8() {
     var grades = checkGrade();
