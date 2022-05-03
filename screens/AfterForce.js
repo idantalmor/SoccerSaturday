@@ -1,4 +1,3 @@
-<script src="http://localhost:8097"></script>;
 import { Text, View, FlatList, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -19,8 +18,8 @@ function AfterForce() {
   const tempTeamA = TeamA;
   const tempTeamB = TeamB;
   const tempTeamC = TeamC;
+  const potentialChanges = [];
 
-  const num = getRandomInt(1, 3);
 
   function backNow() {
     navigation.navigate("ChoosePlayers");
@@ -423,7 +422,6 @@ function AfterForce() {
   }
   function step7() {
     var grades = checkGrade();
-    const potentialChanges = [];
     console.log(grades);
     const difference = (grades[0].grade - grades[2].grade) / 2;
     console.log("the difference is:" + difference);
@@ -572,12 +570,14 @@ function AfterForce() {
           }
         }
       }
+      console.log(potentialChanges)
     }
-    console.log(potentialChanges)
   }
   function step8() {
     var grades = checkGrade();
     console.log("now: " + grades);
+    var potentialChanges2 = potentialChanges.filter(pilot => pilot.replace1.role == pilot.replace2.role)
+    console.log(potentialChanges2)
   }
 
   return (
@@ -645,7 +645,6 @@ function AfterForce() {
         <PrimaryButton onPress={step1}>step1</PrimaryButton>
         <PrimaryButton onPress={step7}>step7</PrimaryButton>
         <PrimaryButton onPress={step8}>step8</PrimaryButton>
-
         <PrimaryButton onPress={backNow}>Back to choose</PrimaryButton>
       </View>
     </View>
