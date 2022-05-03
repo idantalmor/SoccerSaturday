@@ -13,6 +13,7 @@ import Title from "../components/AfterForce/Title";
 import { LinearGradient } from "expo-linear-gradient";
 import Colors from "../constans/style";
 import PlayerTitle from "../components/AfterForce/PlayerTitle";
+import Formation from "./Formation";
 
 function AfterForce() {
   const route = useRoute();
@@ -29,9 +30,16 @@ function AfterForce() {
   const tempTeamB = TeamB;
   const tempTeamC = TeamC;
   const potentialChanges = [];
+  const [formationIsVisible, setFormationIsVisible] = useState(false);
 
   function backNow() {
     navigation.navigate("ChoosePlayers");
+  }
+  function showFormation() {
+    setFormationIsVisible(true);
+  }
+  function hideFormation() {
+    setFormationIsVisible(false);
   }
 
   function getRandomInt(min, max) {
@@ -42,7 +50,7 @@ function AfterForce() {
 
   function renderPlayers(itemData) {
     return (
-      <PlayerTitle name={itemData.item.fullName} role={itemData.item.role}/>
+      <PlayerTitle name={itemData.item.fullName} role={itemData.item.role} />
     );
   }
 
@@ -581,51 +589,58 @@ function AfterForce() {
   }
 
   return (
-    <LinearGradient colors={[Colors.primary700, Colors.primary600]} style={styles.rootScreen}>
-      <ImageBackground source={require("../assets/background3.webp")}
+    <LinearGradient
+      colors={[Colors.primary700, Colors.primary600]}
+      style={styles.rootScreen}
+    >
+      <ImageBackground
+        source={require("../assets/background3.webp")}
         resizeMode="cover"
         style={styles.rootScreen}
-        imageStyle={styles.backgroundImage}>
-
-      <View style={styles.rootContainer}>
-      <View style={styles.buttonsContainer}>
-          <PrimaryButton onPress={step1}>Good Luck</PrimaryButton>
-          <PrimaryButton onPress={backNow}>Back</PrimaryButton>
+        imageStyle={styles.backgroundImage}
+      >
+        <View>
+          <Formation visible={formationIsVisible} onBack={hideFormation} />
         </View>
-        <View style={styles.positions}></View>
-        <View style={styles.positions}>
-          <View>
-            <Title>TeamA</Title>
-            <FlatList
-              data={TeamA}
-              keyExtractor={(item) => item.id}
-              renderItem={renderPlayers}
-              numColumns={1}
-            />
-            <PrimaryButton>Show</PrimaryButton>
+        <View style={styles.rootContainer}>
+          <View style={styles.buttonsContainer}>
+            <PrimaryButton onPress={step1}>Good Luck</PrimaryButton>
+            <PrimaryButton onPress={backNow}>Back</PrimaryButton>
           </View>
-          <View>
-          <Title>TeamB</Title>
-            <FlatList
-              data={TeamB}
-              keyExtractor={(item) => item.id}
-              renderItem={renderPlayers}
-              numColumns={1}
-            />
-            <PrimaryButton>Show</PrimaryButton>
-          </View>
-          <View>
-          <Title>TeamC</Title>
-            <FlatList
-              data={TeamC}
-              keyExtractor={(item) => item.id}
-              renderItem={renderPlayers}
-              numColumns={1}
-            />
-            <PrimaryButton>Show</PrimaryButton>
+          <View style={styles.positions}></View>
+          <View style={styles.positions}>
+            <View>
+              <Title>TeamA</Title>
+              <FlatList
+                data={TeamA}
+                keyExtractor={(item) => item.id}
+                renderItem={renderPlayers}
+                numColumns={1}
+              />
+              <PrimaryButton onPress={showFormation}>Show</PrimaryButton>
+            </View>
+            <View>
+              <Title>TeamB</Title>
+              <FlatList
+                data={TeamB}
+                keyExtractor={(item) => item.id}
+                renderItem={renderPlayers}
+                numColumns={1}
+              />
+              <PrimaryButton onPress={showFormation}>Show</PrimaryButton>
+            </View>
+            <View>
+              <Title>TeamC</Title>
+              <FlatList
+                data={TeamC}
+                keyExtractor={(item) => item.id}
+                renderItem={renderPlayers}
+                numColumns={1}
+              />
+              <PrimaryButton onPress={showFormation}>Show</PrimaryButton>
+            </View>
           </View>
         </View>
-      </View>
       </ImageBackground>
     </LinearGradient>
   );
@@ -647,7 +662,7 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   rootScreen: {
     flex: 1,
