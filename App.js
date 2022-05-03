@@ -11,6 +11,8 @@ import ChoosePlayers from "./screens/ChoosePlayers";
 import TheTeams from "./screens/TheTeams";
 import AfterForce from "./screens/AfterForce";
 import Formation from "./screens/Formation";
+import SubsScreen from "./screens/SubScreen";
+
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator();
@@ -64,6 +66,7 @@ export default function App() {
           headerShown: false,
         }}/>
         <Stack.Screen name="Formation" component={Formation}/>
+        <Stack.Screen name="SubsScreen" component={SubsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
     </>

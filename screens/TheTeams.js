@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, Saf } from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { PLAYER } from "../data/dummy-data";
 import { useState } from "react";
@@ -20,7 +20,7 @@ function TheTeams() {
   });
   const ArrayAttack = Players.filter(function (item) {
     return item.role == "Attack";
-  }).map(function ({ id, fullName, role, grade,favoriteNumber }) {
+  }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
     return { id, fullName, role, grade, favoriteNumber };
   });
   function renderGoalKeeper(itemData) {
@@ -32,6 +32,27 @@ function TheTeams() {
   function renderAttack(itemData) {
     return <Text>{itemData.item.fullName}</Text>;
   }
+
+  function createTwoButtonAlert() {
+    var sumPlayers = ArrayBack.length + ArrayAttack.length;
+    console.log(sumPlayers)
+    if (sumPlayers < 18) {
+      Alert.alert(
+        "Not enough Players",
+        "Must have at least 19 fielders to make teams",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+        ]
+      );
+    }
+    else{
+      makeTeamsHandler()
+    }
+  }
+
   function makeTeamsHandler() {
     navigation.navigate("AfterForce", {
       GoalKeeper: ArrayGoalKeeper,
@@ -71,7 +92,7 @@ function TheTeams() {
           />
         </View>
       </View>
-      <PrimaryButton onPress={makeTeamsHandler} visible={false}>
+      <PrimaryButton onPress={createTwoButtonAlert} visible={false}>
         Make 3 Teams of 7 Players
       </PrimaryButton>
     </View>

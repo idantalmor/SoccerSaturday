@@ -7,6 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
   VirtualizedList,
+  ImageBackground,
 } from "react-native";
 import { PLAYER } from "../data/dummy-data";
 import Colors from "../constans/style";
@@ -14,6 +15,8 @@ import Subtitle from "../components/MakeTeams/SubTitle";
 import PrimaryButton from "../components/MakeTeams/Button";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import okButton from "../components/MakeTeams/OkButton";
 
 function ChoosePlayers() {
   const navigation = useNavigation();
@@ -57,44 +60,60 @@ function ChoosePlayers() {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <LinearGradient
+      colors={[Colors.primary700, Colors.primary600]}
+      style={styles.rootScreen}
+    >
+      <ImageBackground
+        source={require("../assets/background4.jpg")}
+        resizeMode="cover"
+        style={styles.rootScreen}
+        imageStyle={styles.backgroundImage}
+      >
         <View>
-          <Text style={styles.title}>
-            Click on the players who have confirmed arrival
-          </Text>
-          <View style={styles.flatList1Container}>
+          <View>
+            <Text style={styles.title}>
+              Click on the players who have confirmed arrival
+            </Text>
+            <View>
+              <PrimaryButton onPress={chooseAllHandler}>
+                Choose All
+              </PrimaryButton>
+              <PrimaryButton onPress={cleanListHandler}>
+                Clean List
+              </PrimaryButton>
+              <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
+            </View>
+          </View>
+          <View style={styles.titlePositions}>
             <Text Text style={styles.titleContainer}>
               All Players ({AllPlayers.length})
             </Text>
+            <Text Text style={styles.titleContainer}>
+              Who's Coming ({PlayersAreCome.length}){" "}
+            </Text>
+          </View>
+          <View style={styles.titlePositions}>
             <View>
               <FlatList
                 data={AllPlayers}
                 keyExtractor={(item) => item.id}
                 renderItem={renderPlayersItem}
-                numColumns={2}
+                numColumns={1}
+              />
+            </View>
+            <View>
+              <FlatList
+                data={PlayersAreCome}
+                keyExtractor={(item) => item.id}
+                renderItem={renderPlayersChosenItem}
+                numColumns={1}
               />
             </View>
           </View>
-          <View style={styles.flatList2Container}>
-            <Text style={styles.titleContainer}>
-              Who's Coming ({PlayersAreCome.length}){" "}
-            </Text>
-            <FlatList
-              data={PlayersAreCome}
-              keyExtractor={(item) => item.id}
-              renderItem={renderPlayersChosenItem}
-              numColumns={2}
-            />
-          </View>
-          <View>
-            <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
-            <PrimaryButton onPress={cleanListHandler}>Clean List</PrimaryButton>
-            <PrimaryButton onPress={chooseAllHandler}>Choose All</PrimaryButton>
-          </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -102,17 +121,25 @@ export default ChoosePlayers;
 
 const styles = StyleSheet.create({
   flatList1Container: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "column",
+  },
+  rootScreen: {
     flex: 1,
+  },
+  backgroundImage: {
+    opacity: 0.5,
+  },
+  titlePositions: {
+    flexDirection: "row",
     justifyContent: "space-around",
   },
-  flatList2Container: {
+  titlePositions2: {
+    flexDirection: "row",
     justifyContent: "space-around",
   },
-  title: {
-    textAlign: "center",
-    fontSize: 20,
-    color: "blue",
-  },
+
   buttonOuterContainer: {
     borderRadius: 28,
     margin: 4,

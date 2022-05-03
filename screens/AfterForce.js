@@ -36,11 +36,12 @@ function AfterForce() {
   const tempTeamA = TeamA;
   const tempTeamB = TeamB;
   const tempTeamC = TeamC;
-  const potentialChanges = [];
+  // const potentialChanges = [];
+  const [potentialChanges, setPotentialChanges] = useState([]);
   const [formationIsVisible, setFormationIsVisible] = useState(false);
   const [buttonsIsVisible, setButtonsIsVisible] = useState(false);
   function createTwoButtonAlert() {
-    if(TeamA.length > 0){
+    if (TeamA.length > 0) {
       Alert.alert(
         "Make new Groups?",
         "Are you sure you want to unsubscribe and create new groups?",
@@ -52,10 +53,8 @@ function AfterForce() {
           { text: "OK", onPress: () => backNow() },
         ]
       );
-    }
-    else{
-      backNow()
-
+    } else {
+      backNow();
     }
   }
 
@@ -65,7 +64,7 @@ function AfterForce() {
   function showFormation(currentTeam, TeamName, TeamGrade) {
     setCurrentTeamName(TeamName);
     setCurrentTeam(currentTeam);
-    setCurrentTeamGrade(TeamGrade)
+    setCurrentTeamGrade(TeamGrade);
     setFormationIsVisible(true);
   }
   function hideFormation() {
@@ -85,7 +84,14 @@ function AfterForce() {
     );
   }
 
-  function subsHandler() {}
+  function subsHandler() {
+    navigation.navigate("SubsScreen", {
+      TeamAGrade: TeamAGrade,
+      TeamBGrade: TeamBGrade,
+      TeamCGrade: TeamCGrade,
+      potentialChanges: potentialChanges,
+    });
+  }
 
   function step1() {
     const changing = new Player(
@@ -595,7 +601,7 @@ function AfterForce() {
     }
   }
   function step8() {
-    updateGrades()
+    updateGrades();
     var potentialChanges2 = potentialChanges.filter(
       (pilot) => pilot.replace1.role == pilot.replace2.role
     );
@@ -605,7 +611,7 @@ function AfterForce() {
     setButtonsIsVisible(true);
   }
 
-  function updateGrades(){
+  function updateGrades() {
     var grades = checkGrade();
     if (grades[0].team == "teamA") {
       setTeamAGrade(grades[0].grade);
@@ -634,8 +640,6 @@ function AfterForce() {
     if (grades[2].team == "teamC") {
       setTeamCGrade(grades[2].grade);
     }
-  
-
   }
   return (
     <LinearGradient

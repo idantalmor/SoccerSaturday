@@ -20,7 +20,7 @@ export const PLAYER = [
   new Player("p17", "Elior Blux", "Attack", 2.5,8),
   new Player("p18", "Nir Sfaradi", "Attack", 3, 15),
   new Player("p19", "Aviv Beno", "Attack", 4, 17),
-  new Player("p20", "Shalev nokowen", "Attack", 73),
+  new Player("p20", "Shalev nokowen", "Attack",3, 73),
   new Player("p21", "Ido Sharabi", "Attack", 3.5, 19),
   new Player("p22", "Dean Sfania", "Attack", 5,11),
 ];
