@@ -1,8 +1,18 @@
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import Player from "../models/Player";
 import PrimaryButton from "../components/MakeTeams/Button";
+import Title from "../components/AfterForce/Title";
+import { LinearGradient } from "expo-linear-gradient";
+import Colors from "../constans/style";
+import PlayerTitle from "../components/AfterForce/PlayerTitle";
 
 function AfterForce() {
   const route = useRoute();
@@ -20,7 +30,6 @@ function AfterForce() {
   const tempTeamC = TeamC;
   const potentialChanges = [];
 
-
   function backNow() {
     navigation.navigate("ChoosePlayers");
   }
@@ -31,25 +40,9 @@ function AfterForce() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  function renderGoalKeeper(itemData) {
+  function renderPlayers(itemData) {
     return (
-      <Text>
-        {itemData.item.fullName} {itemData.item.grade}
-      </Text>
-    );
-  }
-  function renderDefense(itemData) {
-    return (
-      <Text>
-        {itemData.item.fullName} : {itemData.item.grade}
-      </Text>
-    );
-  }
-  function renderAttack(itemData) {
-    return (
-      <Text>
-        {itemData.item.fullName} : {itemData.item.grade}
-      </Text>
+      <PlayerTitle name={itemData.item.fullName} role={itemData.item.role}/>
     );
   }
 
@@ -419,6 +412,7 @@ function AfterForce() {
     TeamA.sort((a, b) => (a.grade < b.grade ? 1 : -1));
     TeamB.sort((a, b) => (a.grade < b.grade ? 1 : -1));
     TeamC.sort((a, b) => (a.grade < b.grade ? 1 : -1));
+    step7();
   }
   function step7() {
     var grades = checkGrade();
@@ -433,11 +427,11 @@ function AfterForce() {
         for (var j = 0; j < 6; j++) {
           const playerB = TeamB[j];
           const playerBGrade = playerB.grade;
-          const myDifference = playerAGrade - playerBGrade
-          if ((myDifference <= difference) && (myDifference >0)) {
+          const myDifference = playerAGrade - playerBGrade;
+          if (myDifference <= difference && myDifference > 0) {
             console.log("if 1 changing");
             if (playerA.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
-              potentialChanges.push({replace1: playerA, replace2: playerB})
+              potentialChanges.push({ replace1: playerA, replace2: playerB });
               // const tempAFirst = TeamA.slice(0, i);
               // const tempASecond = TeamA.slice(i + 1);
               // const tempAThird = tempAFirst.concat(tempASecond);
@@ -457,11 +451,11 @@ function AfterForce() {
         for (var j = 0; j < 6; j++) {
           const playerC = TeamC[j];
           const playerCGrade = playerC.grade;
-          const myDifference = playerAGrade - playerCGrade
-          if ((myDifference <= difference) && (myDifference >0)) {
+          const myDifference = playerAGrade - playerCGrade;
+          if (myDifference <= difference && myDifference > 0) {
             console.log("if 2 changing");
             if (playerA.role != "GoalKeeper" && playerC.role != "GoalKeeper") {
-              potentialChanges.push({replace1: playerA, replace2: playerC})
+              potentialChanges.push({ replace1: playerA, replace2: playerC });
               // const tempAFirst = TeamA.slice(0, i);
               // const tempASecond = TeamA.slice(i + 1);
               // const tempAThird = tempAFirst.concat(tempASecond);
@@ -481,11 +475,11 @@ function AfterForce() {
         for (var j = 0; j < 6; j++) {
           const playerA = TeamA[j];
           const playerAGrade = playerA.grade;
-          const myDifference = playerBGrade - playerAGrade
-          if ((myDifference <= difference) && (myDifference >0)) {
+          const myDifference = playerBGrade - playerAGrade;
+          if (myDifference <= difference && myDifference > 0) {
             console.log("if 3 changing");
             if (playerA.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
-              potentialChanges.push({replace1: playerB, replace2: playerA})
+              potentialChanges.push({ replace1: playerB, replace2: playerA });
               // const tempBFirst = TeamB.slice(0, i);
               // const tempBSecond = TeamB.slice(i + 1);
               // const tempBThird = tempBFirst.concat(tempBSecond);
@@ -505,11 +499,11 @@ function AfterForce() {
         for (var j = 0; j < 6; j++) {
           const playerC = TeamC[j];
           const playerCGrade = playerC.grade;
-          const myDifference = playerBGrade - playerCGrade
-          if ((myDifference <= difference) && (myDifference >0)) {
+          const myDifference = playerBGrade - playerCGrade;
+          if (myDifference <= difference && myDifference > 0) {
             console.log("if 4 changing");
             if (playerC.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
-              potentialChanges.push({replace1: playerB, replace2: playerC})
+              potentialChanges.push({ replace1: playerB, replace2: playerC });
               // const tempBFirst = TeamB.slice(0, i);
               // const tempBSecond = TeamB.slice(i + 1);
               // const tempBThird = tempBFirst.concat(tempBSecond);
@@ -529,11 +523,11 @@ function AfterForce() {
         for (var j = 0; j < 6; j++) {
           const playerA = TeamA[j];
           const playerAGrade = playerA.grade;
-          const myDifference = playerCGrade - playerAGrade
-          if ((myDifference <= difference) && (myDifference >0)) {
+          const myDifference = playerCGrade - playerAGrade;
+          if (myDifference <= difference && myDifference > 0) {
             console.log("if 5 changing");
             if (playerA.role != "GoalKeeper" && playerC.role != "GoalKeeper") {
-              potentialChanges.push({replace1: playerC, replace2: playerA})
+              potentialChanges.push({ replace1: playerC, replace2: playerA });
               // const tempAFirst = TeamA.slice(0, i);
               // const tempASecond = TeamA.slice(i + 1);
               // const tempAThird = tempAFirst.concat(tempASecond);
@@ -553,11 +547,11 @@ function AfterForce() {
         for (var j = 0; j < 6; j++) {
           const playerB = TeamB[j];
           const playerBGrade = playerB.grade;
-          const myDifference = playerCGrade - playerBGrade
-          if ((myDifference <= difference) && (myDifference >0)) {
+          const myDifference = playerCGrade - playerBGrade;
+          if (myDifference <= difference && myDifference > 0) {
             console.log("if 6 changing");
             if (playerC.role != "GoalKeeper" && playerB.role != "GoalKeeper") {
-              potentialChanges.push({replace1: playerC, replace2: playerB})
+              potentialChanges.push({ replace1: playerC, replace2: playerB });
               // const tempBFirst = TeamB.slice(0, i);
               // const tempBSecond = TeamB.slice(i + 1);
               // const tempBThird = tempBFirst.concat(tempBSecond);
@@ -570,84 +564,70 @@ function AfterForce() {
           }
         }
       }
-      console.log(potentialChanges)
+      console.log(potentialChanges);
+      step8();
     }
   }
   function step8() {
     var grades = checkGrade();
     console.log("now: " + grades);
-    var potentialChanges2 = potentialChanges.filter(pilot => pilot.replace1.role == pilot.replace2.role)
-    console.log(potentialChanges2)
+    var potentialChanges2 = potentialChanges.filter(
+      (pilot) => pilot.replace1.role == pilot.replace2.role
+    );
+    console.log(potentialChanges2);
+    TeamA.sort((a, b) => (a.role < b.role ? 1 : -1));
+    TeamB.sort((a, b) => (a.role < b.role ? 1 : -1));
+    TeamC.sort((a, b) => (a.role < b.role ? 1 : -1));
   }
 
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.positions}>
-        <View>
-          <Text style={styles.titles}>GoalKeepers</Text>
-          <FlatList
-            data={GoalKeepers}
-            keyExtractor={(item) => item.id}
-            renderItem={renderGoalKeeper}
-            numColumns={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.titles}>Defense</Text>
-          <FlatList
-            data={Backs}
-            keyExtractor={(item) => item.id}
-            renderItem={renderDefense}
-            numColumns={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.titles}>Attacking</Text>
-          <FlatList
-            data={Attackers}
-            keyExtractor={(item) => item.id}
-            renderItem={renderAttack}
-            numColumns={1}
-          />
-        </View>
-      </View>
-      <View style={styles.positions}>
-        <View>
-          <Text style={styles.titles}>Team A</Text>
-          <FlatList
-            data={TeamA}
-            keyExtractor={(item) => item.id}
-            renderItem={renderGoalKeeper}
-            numColumns={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.titles}>Team B</Text>
-          <FlatList
-            data={TeamB}
-            keyExtractor={(item) => item.id}
-            renderItem={renderGoalKeeper}
-            numColumns={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.titles}>Team C</Text>
-          <FlatList
-            data={TeamC}
-            keyExtractor={(item) => item.id}
-            renderItem={renderGoalKeeper}
-            numColumns={1}
-          />
-        </View>
-      </View>
+    <LinearGradient colors={[Colors.primary700, Colors.primary600]} style={styles.rootScreen}>
+      <ImageBackground source={require("../assets/background3.webp")}
+        resizeMode="cover"
+        style={styles.rootScreen}
+        imageStyle={styles.backgroundImage}>
 
+      <View style={styles.rootContainer}>
       <View style={styles.buttonsContainer}>
-        <PrimaryButton onPress={step1}>step1</PrimaryButton>
-        <PrimaryButton onPress={step7}>step7</PrimaryButton>
-        <PrimaryButton onPress={step8}>step8</PrimaryButton>
-        <PrimaryButton onPress={backNow}>Back to choose</PrimaryButton>
+          <PrimaryButton onPress={step1}>Good Luck</PrimaryButton>
+          <PrimaryButton onPress={backNow}>Back</PrimaryButton>
+        </View>
+        <View style={styles.positions}></View>
+        <View style={styles.positions}>
+          <View>
+            <Title>TeamA</Title>
+            <FlatList
+              data={TeamA}
+              keyExtractor={(item) => item.id}
+              renderItem={renderPlayers}
+              numColumns={1}
+            />
+            <PrimaryButton>Show</PrimaryButton>
+          </View>
+          <View>
+          <Title>TeamB</Title>
+            <FlatList
+              data={TeamB}
+              keyExtractor={(item) => item.id}
+              renderItem={renderPlayers}
+              numColumns={1}
+            />
+            <PrimaryButton>Show</PrimaryButton>
+          </View>
+          <View>
+          <Title>TeamC</Title>
+            <FlatList
+              data={TeamC}
+              keyExtractor={(item) => item.id}
+              renderItem={renderPlayers}
+              numColumns={1}
+            />
+            <PrimaryButton>Show</PrimaryButton>
+          </View>
+        </View>
       </View>
-    </View>
+      </ImageBackground>
+    </LinearGradient>
   );
 }
 export default AfterForce;
@@ -667,5 +647,12 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: "row",
+    justifyContent: 'center'
+  },
+  rootScreen: {
+    flex: 1,
+  },
+  backgroundImage: {
+    opacity: 0.3,
   },
 });
