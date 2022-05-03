@@ -1,7 +1,6 @@
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 
 function Shirt({ name, number }) {
-  console.log(number);
   return (
     <View style={styles.imageWrapper}>
       <ImageBackground

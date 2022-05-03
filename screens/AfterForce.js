@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -21,27 +22,54 @@ function AfterForce() {
   const [GoalKeepers, setGoalKeepers] = useState(route.params.GoalKeeper);
   const [Backs, setBacks] = useState(route.params.Backs);
   const [Attackers, setAttackers] = useState(route.params.Attacks);
-  const tempBacks = Backs;
-  const tempAttackers = Attackers;
   const [TeamA, setTeamA] = useState([]);
   const [TeamB, setTeamB] = useState([]);
   const [TeamC, setTeamC] = useState([]);
+  const [TeamAGrade, setTeamAGrade] = useState(0);
+  const [TeamBGrade, setTeamBGrade] = useState(0);
+  const [TeamCGrade, setTeamCGrade] = useState(0);
   const [currentTeam, setCurrentTeam] = useState(TeamA);
+  const [currentTeamName, setCurrentTeamName] = useState("TeamA");
+  const [currentTeamGrade, setCurrentTeamGrade] = useState(0);
+  const tempBacks = Backs;
+  const tempAttackers = Attackers;
   const tempTeamA = TeamA;
   const tempTeamB = TeamB;
   const tempTeamC = TeamC;
   const potentialChanges = [];
   const [formationIsVisible, setFormationIsVisible] = useState(false);
+  const [buttonsIsVisible, setButtonsIsVisible] = useState(false);
+  function createTwoButtonAlert() {
+    if(TeamA.length > 0){
+      Alert.alert(
+        "Make new Groups?",
+        "Are you sure you want to unsubscribe and create new groups?",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          { text: "OK", onPress: () => backNow() },
+        ]
+      );
+    }
+    else{
+      backNow()
+
+    }
+  }
 
   function backNow() {
     navigation.navigate("ChoosePlayers");
   }
-  function showFormation(currentTeam) {
-    setCurrentTeam(currentTeam)
+  function showFormation(currentTeam, TeamName, TeamGrade) {
+    setCurrentTeamName(TeamName);
+    setCurrentTeam(currentTeam);
+    setCurrentTeamGrade(TeamGrade)
     setFormationIsVisible(true);
   }
   function hideFormation() {
-    setCurrentTeam(TeamA)
+    setCurrentTeam(TeamA);
     setFormationIsVisible(false);
   }
 
@@ -56,6 +84,8 @@ function AfterForce() {
       <PlayerTitle name={itemData.item.fullName} role={itemData.item.role} />
     );
   }
+
+  function subsHandler() {}
 
   function step1() {
     const changing = new Player(
@@ -565,15 +595,48 @@ function AfterForce() {
     }
   }
   function step8() {
-    var grades = checkGrade();
+    updateGrades()
     var potentialChanges2 = potentialChanges.filter(
       (pilot) => pilot.replace1.role == pilot.replace2.role
     );
     TeamA.sort((a, b) => (a.role < b.role ? 1 : -1));
     TeamB.sort((a, b) => (a.role < b.role ? 1 : -1));
     TeamC.sort((a, b) => (a.role < b.role ? 1 : -1));
+    setButtonsIsVisible(true);
   }
 
+  function updateGrades(){
+    var grades = checkGrade();
+    if (grades[0].team == "teamA") {
+      setTeamAGrade(grades[0].grade);
+    }
+    if (grades[0].team == "teamB") {
+      setTeamBGrade(grades[0].grade);
+    }
+    if (grades[0].team == "teamC") {
+      setTeamCGrade(grades[0].grade);
+    }
+    if (grades[1].team == "teamA") {
+      setTeamAGrade(grades[1].grade);
+    }
+    if (grades[1].team == "teamB") {
+      setTeamBGrade(grades[1].grade);
+    }
+    if (grades[1].team == "teamC") {
+      setTeamCGrade(grades[1].grade);
+    }
+    if (grades[2].team == "teamA") {
+      setTeamAGrade(grades[2].grade);
+    }
+    if (grades[2].team == "teamB") {
+      setTeamBGrade(grades[2].grade);
+    }
+    if (grades[2].team == "teamC") {
+      setTeamCGrade(grades[2].grade);
+    }
+  
+
+  }
   return (
     <LinearGradient
       colors={[Colors.primary700, Colors.primary600]}
@@ -586,12 +649,20 @@ function AfterForce() {
         imageStyle={styles.backgroundImage}
       >
         <View>
-          <Formation visible={formationIsVisible} onBack={hideFormation} Team={currentTeam} />
+          <Formation
+            visible={formationIsVisible}
+            onBack={hideFormation}
+            Team={currentTeam}
+            TeamName={currentTeamName}
+            TeamGrade={currentTeamGrade}
+          />
         </View>
         <View style={styles.rootContainer}>
           <View style={styles.buttonsContainer}>
-            <PrimaryButton onPress={step1}>Good Luck</PrimaryButton>
-            <PrimaryButton onPress={backNow}>Back</PrimaryButton>
+            <View display={buttonsIsVisible ? "none" : "flex"}>
+              <PrimaryButton onPress={step1}>Good Luck</PrimaryButton>
+            </View>
+            <PrimaryButton onPress={createTwoButtonAlert}>Back</PrimaryButton>
           </View>
           <View style={styles.positions}></View>
           <View style={styles.positions}>
@@ -603,7 +674,13 @@ function AfterForce() {
                 renderItem={renderPlayers}
                 numColumns={1}
               />
-              <PrimaryButton onPress={showFormation.bind(this,TeamA)} >Show</PrimaryButton>
+              <View display={buttonsIsVisible ? "flex" : "none"}>
+                <PrimaryButton
+                  onPress={showFormation.bind(this, TeamA, "TeamA", TeamAGrade)}
+                >
+                  Show
+                </PrimaryButton>
+              </View>
             </View>
             <View>
               <Title>TeamB</Title>
@@ -613,7 +690,13 @@ function AfterForce() {
                 renderItem={renderPlayers}
                 numColumns={1}
               />
-              <PrimaryButton onPress={showFormation.bind(this,TeamB)} >Show</PrimaryButton>
+              <View display={buttonsIsVisible ? "flex" : "none"}>
+                <PrimaryButton
+                  onPress={showFormation.bind(this, TeamB, "TeamB", TeamBGrade)}
+                >
+                  Show
+                </PrimaryButton>
+              </View>
             </View>
             <View>
               <Title>TeamC</Title>
@@ -623,9 +706,23 @@ function AfterForce() {
                 renderItem={renderPlayers}
                 numColumns={1}
               />
-              <PrimaryButton onPress={showFormation.bind(this,TeamC)} >Show</PrimaryButton>
+              <View display={buttonsIsVisible ? "flex" : "none"}>
+                <PrimaryButton
+                  onPress={showFormation.bind(this, TeamC, "TeamC", TeamCGrade)}
+                >
+                  Show
+                </PrimaryButton>
+              </View>
             </View>
           </View>
+        </View>
+        <View
+          style={styles.suggestedSubContainer}
+          display={buttonsIsVisible ? "flex" : "none"}
+        >
+          <PrimaryButton onPress={subsHandler}>
+            Show me Suggested Subs
+          </PrimaryButton>
         </View>
       </ImageBackground>
     </LinearGradient>
@@ -656,4 +753,8 @@ const styles = StyleSheet.create({
   backgroundImage: {
     opacity: 0.3,
   },
+  suggestedSubContainer: {
+    marginTop: 20,
+  },
+  suggestedSubStyle: {},
 });

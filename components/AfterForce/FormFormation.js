@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   positionDefense3: {
-    paddingVertical: 50,
+    paddingVertical: 10,
   },
   positionGoalKeeper: {
-    marginVertical: -60,
+    marginVertical: -40,
     alignItems:'center'
   },
 });

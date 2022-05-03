@@ -1,17 +1,16 @@
 import { Text, View, ImageBackground, StyleSheet, Modal } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { useState } from "react";
-import Shirt from "../components/Formation/Shirt";
 import PrimaryButton from "../components/MakeTeams/Button";
 import FormFormation from "../components/AfterForce/FormFormation";
+import TitleTeam from "../components/Formation/TitleTeam";
 function Formation(props) {
   return (
     <Modal visible={props.visible} animationType="slide">
+      <TitleTeam name={props.TeamName} grade={props.TeamGrade}/> 
       <ImageBackground source={require("../assets/formation.png")}
         resizeMode="cover"
         style={styles.rootScreen}
         imageStyle={styles.backgroundImage}>
-        <FormFormation Team={props.Team} />
+        <FormFormation Team={props.Team} TeamName={props.TeamName} />
       </ImageBackground>
       <PrimaryButton style={styles.positionButton} onPress={props.onBack}>
         Go back
