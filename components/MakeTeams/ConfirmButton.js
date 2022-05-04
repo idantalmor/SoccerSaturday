@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import Colors from '../../constans/style'
 
-function okButton({ children, onPress }) {
+function ConfirmButton({ children, onPress }) {
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable
@@ -19,7 +19,7 @@ function okButton({ children, onPress }) {
     </View>
   );
 }
-export default okButton
+export default ConfirmButton;
 
 const styles = StyleSheet.create({
   buttonOuterContainer: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   buttonInnerContainer: {
-    backgroundColor: Colors.primary700,
+    backgroundColor: Colors.defense,
     paddingVertical: 8,
     paddingHorizontal: 16,
     elevation: 2,

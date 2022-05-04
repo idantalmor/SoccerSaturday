@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Alert,
-  ImageBackground,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert, Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { PLAYER } from "../data/dummy-data";
 import { useState } from "react";
@@ -13,6 +6,10 @@ import PrimaryButton from "../components/MakeTeams/Button";
 import GoalKeeper from "../components/TheTeams/Goalkeeper";
 import Backs from "../components/TheTeams/Backs";
 import Attack from "../components/TheTeams/Attack";
+import TitleTeam from "../components/ChoosePlayer/TitleTeam";
+import TitlePlayer from "../components/TheTeams/TitlePlayer";
+import { ImageBackground } from "react-native-web";
+import { LinearGradient } from "expo-linear-gradient";
 
 function TheTeams() {
   const route = useRoute();
@@ -35,15 +32,6 @@ function TheTeams() {
   }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
     return { id, fullName, role, grade, favoriteNumber };
   });
-  // function renderGoalKeeper(itemData) {
-  //   return <Text>{itemData.item.fullName}</Text>;
-  // }
-  // function renderDefense(itemData) {
-  //   return <Text>{itemData.item.fullName}</Text>;
-  // }
-  // function renderAttack(itemData) {
-  //   return <Text>{itemData.item.fullName}</Text>;
-  // }
 
   function createTwoButtonAlert() {
     var sumPlayers = ArrayBack.length + ArrayAttack.length;
@@ -86,7 +74,7 @@ function TheTeams() {
 
   function renderPlayersItem(itemData) {
     return (
-      <Title
+      <TitlePlayer
         name={itemData.item.fullName}
         number={itemData.item.favoriteNumber}
       />
@@ -94,12 +82,53 @@ function TheTeams() {
   }
 
   return (
-      <View>
-        <Text>GoalKeeper</Text>
+      <View style={styles.rootContainer}>
+        <PrimaryButton onPress={createTwoButtonAlert} visible={false}>
+          Make 3 Teams of 7 Players
+        </PrimaryButton>
+        <View>
+          <TitleTeam>GoalKeepers - {ArrayGoalKeeper.length} Players</TitleTeam>
+          <View style={styles.titleContainer}>
+            <FlatList
+              data={ArrayGoalKeeper}
+              keyExtractor={(item) => item.id}
+              numColumns={3}
+              renderItem={renderPlayersItem}
+              contentContainerStyle={{ alignSelf: "flex-start" }}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
+        <View>
+          <TitleTeam>Backs - {ArrayBack.length} Players</TitleTeam>
+          <View style={styles.titleContainer}>
+            <FlatList
+              data={ArrayBack}
+              keyExtractor={(item) => item.id}
+              numColumns={3}
+              renderItem={renderPlayersItem}
+              contentContainerStyle={{ alignSelf: "flex-start" }}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
+        <View>
+          <TitleTeam>Attackers - {ArrayAttack.length} Players</TitleTeam>
+          <View style={styles.titleContainer}>
+            <FlatList
+              data={ArrayAttack}
+              keyExtractor={(item) => item.id}
+              numColumns={3}
+              renderItem={renderPlayersItem}
+              contentContainerStyle={{ alignSelf: "flex-start" }}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
       </View>
-        // <PrimaryButton onPress={createTwoButtonAlert} visible={false}>
-        //   Make 3 Teams of 7 Players
-        // </PrimaryButton>
   );
 }
 export default TheTeams;
@@ -127,5 +156,9 @@ const styles = StyleSheet.create({
   },
   AttackContainer: {
     flex: 0.4,
+  },
+  titlePositions: {
+    flexDirection: "column",
+    justifyContent: "space-around",
   },
 });

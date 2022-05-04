@@ -13,6 +13,7 @@ import { PLAYER } from "../data/dummy-data";
 import Colors from "../constans/style";
 import Subtitle from "../components/MakeTeams/SubTitle";
 import PrimaryButton from "../components/MakeTeams/Button";
+import ConfirmButton from "../components/MakeTeams/ConfirmButton";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -81,7 +82,7 @@ function ChoosePlayers() {
               <PrimaryButton onPress={cleanListHandler}>
                 Clean List
               </PrimaryButton>
-              <PrimaryButton onPress={makeTeamsHandler}>Come on!</PrimaryButton>
+              <ConfirmButton onPress={makeTeamsHandler}>Come on!</ConfirmButton>
             </View>
           </View>
           <View style={styles.titlePositions}>
@@ -110,9 +111,9 @@ function ChoosePlayers() {
                 keyExtractor={(item) => item.id}
                 renderItem={renderPlayersChosenItem}
                 contentContainerStyle={{ alignSelf: "flex-start" }}
-                numColumns={3}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
+                numColumns={3}
               />
             </View>
           </View>
