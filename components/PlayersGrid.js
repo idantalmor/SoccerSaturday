@@ -1,10 +1,10 @@
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import Colors from "../constans/style";
 
-function PlayersGrid({ name, role }) {
+function PlayersGrid({ name, role, onPress }) {
   return (
     <View style={styles.gridItem}>
-      <Pressable style={({pressed}) => [styles.button, pressed ? styles.buttonPressed: null,]}>
+      <Pressable style={({pressed}) => [styles.button, pressed ? styles.buttonPressed: null,]} onPress={onPress}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>{name}</Text>
           <Text style={styles.role}>{role}</Text>

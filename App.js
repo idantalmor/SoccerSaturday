@@ -12,6 +12,8 @@ import TheTeams from "./screens/TheTeams";
 import AfterForce from "./screens/AfterForce";
 import Formation from "./screens/Formation";
 import SubsScreen from "./screens/SubScreen";
+import PlayerProfileScreen from "./screens/PlayerProfileScreen";
+import PlayerProfileScreen2 from "./screens/PlayerProfileScreen2";
 
 
 const Stack = createNativeStackNavigator()
@@ -67,6 +69,12 @@ export default function App() {
         }}/>
         <Stack.Screen name="Formation" component={Formation}/>
         <Stack.Screen name="SubsScreen" component={SubsScreen}/>
+        <Stack.Screen name="PlayerProfileScreen" component={PlayerProfileScreen}/>
+        <Stack.Screen name="PlayerProfileScreen2" component={PlayerProfileScreen2} options={{
+          headerTitleAlign:'center',
+          headerTintColor: Colors.primary700,
+          headerStyle: { backgroundColor: Colors.primary500 },
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
     </>

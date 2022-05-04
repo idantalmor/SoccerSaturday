@@ -4,14 +4,24 @@ import { PLAYER } from "../data/dummy-data";
 import PlayersGrid from "../components/PlayersGrid";
 import { LinearGradient } from "expo-linear-gradient";
 import Colors from "../constans/style";
-
-function renderPlayersItem(itemData) {
-  return (
-    <PlayersGrid name={itemData.item.fullName} role={itemData.item.role} />
-  );
-}
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 function AllPlayersScreen() {
+  const navigation = useNavigation();
+  function renderPlayersItem(itemData) {
+    function pressHandler() {
+      // navigation.navigate("PlayerProfileScreen" , {playerId: itemData.item.id});
+      navigation.navigate("PlayerProfileScreen2",  {playerId: itemData.item.id});
+    }
+    return (
+      <PlayersGrid
+        name={itemData.item.fullName}
+        role={itemData.item.role}
+        onPress={pressHandler}
+      />
+    );
+  }
   return (
     <LinearGradient
       colors={[Colors.primary500, Colors.primary600]}
