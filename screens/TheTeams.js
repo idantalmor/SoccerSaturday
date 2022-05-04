@@ -8,6 +8,7 @@ function TheTeams() {
   const route = useRoute();
   const navigation = useNavigation();
   const [Players, setPlayers] = useState(route.params.Players);
+  var validation = true
   const ArrayGoalKeeper = Players.filter(function (item) {
     return item.role == "GoalKeeper";
   }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
@@ -35,11 +36,13 @@ function TheTeams() {
 
   function createTwoButtonAlert() {
     var sumPlayers = ArrayBack.length + ArrayAttack.length;
-    console.log(sumPlayers)
+    var TotalPlayers =
+      ArrayBack.length + ArrayAttack.length + ArrayGoalKeeper.length;
     if (sumPlayers < 18) {
+      validation = false
       Alert.alert(
         "Not enough Players",
-        "Must have at least 19 fielders to make teams",
+        "Must have at least 18 fielders players to make teams",
         [
           {
             text: "Cancel",
@@ -48,9 +51,18 @@ function TheTeams() {
         ]
       );
     }
-    else{
-      makeTeamsHandler()
+    if (TotalPlayers > 21) {
+      validation = false
+      Alert.alert("Too Much Players", "You have more than 21 Players", [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ]);
     }
+    if (validation == true) {
+      makeTeamsHandler();
+  }
   }
 
   function makeTeamsHandler() {

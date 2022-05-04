@@ -1,12 +1,12 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import Colors from "../../constans/style";
 
-function Picture() {
+function Picture({ImageUrl}) {
   return (
     <View style={styles.card}>
       <View style={styles.imageWrapper}>
         <Image
-          source={require("../../assets/check.jpg")}
+          source={{uri: ImageUrl}}
           style={styles.theImage}
         />
       </View>

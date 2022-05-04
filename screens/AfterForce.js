@@ -719,7 +719,6 @@ function AfterForce() {
               </View>
             </View>
           </View>
-        </View>
         <View
           style={styles.suggestedSubContainer}
           display={buttonsIsVisible ? "flex" : "none"}
@@ -727,6 +726,7 @@ function AfterForce() {
           <PrimaryButton onPress={subsHandler}>
             Show me Suggested Subs
           </PrimaryButton>
+        </View>
         </View>
       </ImageBackground>
     </LinearGradient>

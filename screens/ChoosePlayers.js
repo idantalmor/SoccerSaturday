@@ -16,7 +16,8 @@ import PrimaryButton from "../components/MakeTeams/Button";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import okButton from "../components/MakeTeams/OkButton";
+import Title from "../components/ChoosePlayer/Title";
+import TitleTeam from "../components/ChoosePlayer/TitleTeam";
 
 function ChoosePlayers() {
   const navigation = useNavigation();
@@ -72,9 +73,7 @@ function ChoosePlayers() {
       >
         <View>
           <View>
-            <Text style={styles.title}>
-              Click on the players who have confirmed arrival
-            </Text>
+            <Title>Click on the players who have confirmed arrival</Title>
             <View>
               <PrimaryButton onPress={chooseAllHandler}>
                 Choose All
@@ -86,28 +85,34 @@ function ChoosePlayers() {
             </View>
           </View>
           <View style={styles.titlePositions}>
-            <Text Text style={styles.titleContainer}>
+            <TitleTeam>
               All Players ({AllPlayers.length})
-            </Text>
-            <Text Text style={styles.titleContainer}>
-              Who's Coming ({PlayersAreCome.length}){" "}
-            </Text>
+            </TitleTeam>
           </View>
           <View style={styles.titlePositions}>
-            <View>
+            <View style={styles.flatListStyle}>
               <FlatList
                 data={AllPlayers}
                 keyExtractor={(item) => item.id}
                 renderItem={renderPlayersItem}
-                numColumns={1}
+                contentContainerStyle={{ alignSelf: "flex-start" }}
+                numColumns= {4}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
               />
             </View>
+            <TitleTeam>
+              Who's Coming ({PlayersAreCome.length}){" "}
+            </TitleTeam>
             <View>
               <FlatList
                 data={PlayersAreCome}
                 keyExtractor={(item) => item.id}
                 renderItem={renderPlayersChosenItem}
-                numColumns={1}
+                contentContainerStyle={{ alignSelf: "flex-start" }}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
               />
             </View>
           </View>
@@ -132,7 +137,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   titlePositions: {
-    flexDirection: "row",
+    flexDirection: 'column',
     justifyContent: "space-around",
   },
   titlePositions2: {
@@ -169,4 +174,8 @@ const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 20,
   },
+  flatListStyle:{
+    alignItems:'center',
+    justifyContent:'center'
+  }
 });

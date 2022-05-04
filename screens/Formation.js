@@ -1,29 +1,30 @@
-import {
-  Text,
-  View,
-  ImageBackground,
-  StyleSheet,
-  Modal,
-} from "react-native";
+import { Text, View, ImageBackground, StyleSheet, Modal } from "react-native";
 import PrimaryButton from "../components/MakeTeams/Button";
 import FormFormation from "../components/AfterForce/FormFormation";
 import TitleTeam from "../components/Formation/TitleTeam";
+import { useLayoutEffect } from "react";
+import { SafeAreaView } from "react-native";
+
 function Formation(props) {
   return (
-    <Modal visible={props.visible} animationType="slide">
-      <TitleTeam name={props.TeamName} grade={props.TeamGrade} />
-      <ImageBackground
-        source={require("../assets/formation.png")}
-        resizeMode="cover"
-        style={styles.rootScreen}
-        imageStyle={styles.backgroundImage}
-      >
-        <FormFormation Team={props.Team} TeamName={props.TeamName} />
-      </ImageBackground>
-      <PrimaryButton style={styles.positionButton} onPress={props.onBack}>
-        Go back
-      </PrimaryButton>
-    </Modal>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <Modal visible={props.visible} animationType="fade">
+          <ImageBackground
+            source={require("../assets/formation.png")}
+            resizeMode="cover"
+            style={styles.rootScreen}
+            imageStyle={styles.backgroundImage}
+          >
+            <FormFormation Team={props.Team} TeamName={props.TeamName} />
+          </ImageBackground>
+          <TitleTeam name={props.TeamName} grade={props.TeamGrade} />
+          <PrimaryButton style={styles.positionButton} onPress={props.onBack}>
+            Go back
+          </PrimaryButton>
+        </Modal>
+      </View>
+    </SafeAreaView>
   );
 }
 export default Formation;

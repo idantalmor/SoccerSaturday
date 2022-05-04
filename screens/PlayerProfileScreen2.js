@@ -37,7 +37,7 @@ function MakeTeams({ navigation }) {
           imageStyle={styles.backgroundImage}
         >
           <View style={styles.buttonContainer}>
-            <Picture />
+            <Picture ImageUrl={player.Image} />
             <View style={styles.shirtContainer}>
               <Shirt name={player.fullName} number={player.favoriteNumber} />
             </View>

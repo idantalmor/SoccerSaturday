@@ -8,7 +8,11 @@ function Subtitle({ children, onPress }) {
   return (
     
     <View style={styleName}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={onPress} style={({ pressed }) =>
+          pressed
+            ? [styles.buttonInnerContainer, styles.pressed]
+            : styles.buttonInnerContainer
+        }>
         <Text style={styleText}>{children}</Text>
       </Pressable>
     </View>
@@ -19,22 +23,31 @@ export default Subtitle;
 const styles = StyleSheet.create({
   subtitle: {
     color: Colors.primary500,
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "bold",
     textAlign: "center",
     
   },
   subtitleContainer: {
-    padding: 10,
-    borderBottomColor: "white",
+    padding: 8,
+    borderBottomColor: Colors.primary600,
     backgroundColor: Colors.primary700,
     borderBottomWidth: 2,
     marginHorizontal: 12,
     marginVertical: 4,
-    borderRadius:20,
-    borderColor: Colors.primary500
+    borderRadius:15,
+    borderColor: Colors.primary600
   },
   pressed: {
-    opacity: 0.75,
+    opacity: 0.3,
+    backgroundColor: Colors.primary600
+  },
+  buttonOuterContainer: {
+    borderRadius: 28,
+    margin: 4,
+    overflow: "hidden",
+  },
+  buttonInnerContainer: {
+    paddingVertical: 8,
   },
 });
