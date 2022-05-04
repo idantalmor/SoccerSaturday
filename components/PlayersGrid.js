@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center'
     },
     role:{
