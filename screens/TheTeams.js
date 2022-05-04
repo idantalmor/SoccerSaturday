@@ -1,14 +1,25 @@
-import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Alert,
+  ImageBackground,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { PLAYER } from "../data/dummy-data";
 import { useState } from "react";
 import PrimaryButton from "../components/MakeTeams/Button";
+import GoalKeeper from "../components/TheTeams/Goalkeeper";
+import Backs from "../components/TheTeams/Backs";
+import Attack from "../components/TheTeams/Attack";
 
 function TheTeams() {
   const route = useRoute();
   const navigation = useNavigation();
   const [Players, setPlayers] = useState(route.params.Players);
-  var validation = true
+  var validation = true;
+
   const ArrayGoalKeeper = Players.filter(function (item) {
     return item.role == "GoalKeeper";
   }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
@@ -24,22 +35,22 @@ function TheTeams() {
   }).map(function ({ id, fullName, role, grade, favoriteNumber }) {
     return { id, fullName, role, grade, favoriteNumber };
   });
-  function renderGoalKeeper(itemData) {
-    return <Text>{itemData.item.fullName}</Text>;
-  }
-  function renderDefense(itemData) {
-    return <Text>{itemData.item.fullName}</Text>;
-  }
-  function renderAttack(itemData) {
-    return <Text>{itemData.item.fullName}</Text>;
-  }
+  // function renderGoalKeeper(itemData) {
+  //   return <Text>{itemData.item.fullName}</Text>;
+  // }
+  // function renderDefense(itemData) {
+  //   return <Text>{itemData.item.fullName}</Text>;
+  // }
+  // function renderAttack(itemData) {
+  //   return <Text>{itemData.item.fullName}</Text>;
+  // }
 
   function createTwoButtonAlert() {
     var sumPlayers = ArrayBack.length + ArrayAttack.length;
     var TotalPlayers =
       ArrayBack.length + ArrayAttack.length + ArrayGoalKeeper.length;
     if (sumPlayers < 18) {
-      validation = false
+      validation = false;
       Alert.alert(
         "Not enough Players",
         "Must have at least 18 fielders players to make teams",
@@ -52,7 +63,7 @@ function TheTeams() {
       );
     }
     if (TotalPlayers > 21) {
-      validation = false
+      validation = false;
       Alert.alert("Too Much Players", "You have more than 21 Players", [
         {
           text: "Cancel",
@@ -62,7 +73,7 @@ function TheTeams() {
     }
     if (validation == true) {
       makeTeamsHandler();
-  }
+    }
   }
 
   function makeTeamsHandler() {
@@ -73,41 +84,22 @@ function TheTeams() {
     });
   }
 
+  function renderPlayersItem(itemData) {
+    return (
+      <Title
+        name={itemData.item.fullName}
+        number={itemData.item.favoriteNumber}
+      />
+    );
+  }
+
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.positions}>
-        <View>
-          <Text style={styles.titles}>GoalKeepers</Text>
-          <FlatList
-            data={ArrayGoalKeeper}
-            keyExtractor={(item) => item.id}
-            renderItem={renderGoalKeeper}
-            numColumns={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.titles}>Defense</Text>
-          <FlatList
-            data={ArrayBack}
-            keyExtractor={(item) => item.id}
-            renderItem={renderDefense}
-            numColumns={1}
-          />
-        </View>
-        <View>
-          <Text style={styles.titles}>Attacking</Text>
-          <FlatList
-            data={ArrayAttack}
-            keyExtractor={(item) => item.id}
-            renderItem={renderAttack}
-            numColumns={1}
-          />
-        </View>
+      <View>
+        <Text>GoalKeeper</Text>
       </View>
-      <PrimaryButton onPress={createTwoButtonAlert} visible={false}>
-        Make 3 Teams of 7 Players
-      </PrimaryButton>
-    </View>
+        // <PrimaryButton onPress={createTwoButtonAlert} visible={false}>
+        //   Make 3 Teams of 7 Players
+        // </PrimaryButton>
   );
 }
 export default TheTeams;
@@ -123,5 +115,17 @@ const styles = StyleSheet.create({
   titles: {
     fontWeight: "bold",
     fontSize: 16,
+  },
+  titleContainer: {
+    alignItems: "center",
+  },
+  GoalKeeperContainer: {
+    flex: 0.2,
+  },
+  BacksContainer: {
+    flex: 0.3,
+  },
+  AttackContainer: {
+    flex: 0.4,
   },
 });

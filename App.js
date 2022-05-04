@@ -14,6 +14,7 @@ import Formation from "./screens/Formation";
 import SubsScreen from "./screens/SubScreen";
 import PlayerProfileScreen2 from "./screens/PlayerProfileScreen2";
 
+
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
